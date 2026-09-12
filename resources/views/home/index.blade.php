@@ -4,7 +4,39 @@
     - صفحه اصلی
 @endsection
 {{-- @include('sweetalert::alert') --}}
+@section('script')
+    <script>
+        $('.variation-select').on('change', function() {
 
+            // وریشن انتخاب شده
+            let variation = JSON.parse(this.value);
+
+            // فقط قیمت مربوط به همین Modal
+            let variationPriceDiv = $('.variation-price');
+            variationPriceDiv.empty();
+
+            if (variation.is_sale) {
+                let spanSale = $('<span/>', {
+                    class: 'new',
+                    text: toPersianNum(number_format(variation.sale_price)) + ' تومان'
+                })
+                let spanPrice = $('<span/>', {
+                    class: 'old',
+                    text: toPersianNum(number_format(variation.price)) + ' تومان'
+                })
+                variationPriceDiv.append(spanSale);
+                variationPriceDiv.append(spanPrice);
+            } else {
+                let spanSale = $('<span/>', {
+                    class: 'new',
+                    text: toPersianNum(number_format(variation.price)) + ' تومان'
+                })
+                variationPriceDiv.append(spanSale);
+
+            }
+        });
+    </script>
+@endsection
 @section('content')
     <div class="slider-area section-padding-1">
         <div class="slider-active owl-carousel nav-style-1">
@@ -148,7 +180,7 @@
                                             <h4 class="ht-product-title text-right">
                                                 <a href="a"> {{ $product->name }} </a>
                                             </h4>
-                                            <div class="ht-product-price">
+                                            <div class="ht-product-price  ">
                                                 @if ($product->quantity_check)
                                                     @if ($product->sale_check)
                                                         <span class="new">
@@ -1409,7 +1441,7 @@
                             <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
                                 <div class="product-details-content quickview-content">
                                     <h2 class="text-right mb-4"> {{ $product->name }}</h2>
-                                    <div class="product-details-price">
+                                    <div class="product-details-price  variation-price ">
                                         @if ($product->quantity_check)
                                             @if ($product->sale_check)
                                                 <span class="new">
@@ -1456,36 +1488,43 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                    <div class="pro-details-size-color text-right">
-                                        <div class="pro-details-size">
-                                            <span>{{  }}</span>
-                                            <div class="pro-details-size-content">
-                                                <ul>
-                                                    <li><a href="#">s</a></li>
-                                                    <li><a href="#">m</a></li>
-                                                    <li><a href="#">l</a></li>
-                                                    <li><a href="#">xl</a></li>
-                                                    <li><a href="#">xxl</a></li>
-                                                </ul>
+                                    @if ($product->quantity_check)
+                                        <div class="pro-details-size-color text-right">
+                                            <div class="pro-details-size w-50 ">
+                                                <span>{{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}</span>
+                                                <select class="form-control variation-select  ">
+                                                    @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
+                                                        <option
+                                                            value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}">
+                                                            {{ $variation->value }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
+                                        <div class="pro-details-quality">
+                                            <div class="cart-plus-minus">
+                                                <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                    value="2" />
+                                            </div>
+                                            <div class="pro-details-cart">
+                                                <a href="#">افزودن به سبد خرید</a>
+                                            </div>
+                                            <div class="pro-details-wishlist">
+                                                <a title="Add To Wishlist" href="#"><i
+                                                        class="sli sli-heart"></i></a>
+                                            </div>
+                                            <div class="pro-details-compare">
+                                                <a title="Add To Compare" href="#"><i
+                                                        class="sli sli-refresh"></i></a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="not-in-stock">
+                                            <p class=" text-white">ناموجود</p>
+                                        </div>
+                                    @endif
 
-                                    </div>
-                                    <div class="pro-details-quality">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton"
-                                                value="2" />
-                                        </div>
-                                        <div class="pro-details-cart">
-                                            <a href="#">افزودن به سبد خرید</a>
-                                        </div>
-                                        <div class="pro-details-wishlist">
-                                            <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                        </div>
-                                        <div class="pro-details-compare">
-                                            <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                        </div>
-                                    </div>
                                     <div class="pro-details-meta">
                                         <span>دسته بندی :</span>
                                         <ul>
