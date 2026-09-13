@@ -64,6 +64,11 @@ class Product extends Model
         return $this->hasMany(ProductImage::class,);
     }
 
+    public function rates()
+    {
+        return $this->hasMany(ProductRate::class,);
+    }
+
      public function getQuantityCheckAttribute()
     {
         return $this->variations()->where('quantity' , '>' ,0)->first() ?? 0 ;

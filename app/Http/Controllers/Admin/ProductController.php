@@ -172,7 +172,7 @@ class ProductController extends Controller
             'variation_values.*.price' => ['required', 'integer'],
             'variation_values.*.quantity' => ['required', 'integer'],
             'variation_values.*.sale_price' => ['nullable', 'integer'],
-            'variation_values.*.data_on_sale_from' => ['nullable', 'date'],
+            'variation_values.*.date_on_sale_from' => ['nullable', 'date'],
             'variation_values.*.date_on_sale_to' => ['nullable', 'date'],
 
             'delivery_amount' => ['required', 'integer'],

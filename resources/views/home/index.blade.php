@@ -162,11 +162,6 @@
                                                             class="ht-product-action-tooltip"> مقایسه
                                                         </span></a>
                                                 </li>
-                                                <li>
-                                                    <a href="#"><i class="sli sli-bag"></i><span
-                                                            class="ht-product-action-tooltip"> افزودن به سبد
-                                                            خرید </span></a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -203,21 +198,13 @@
 
                                             </div>
                                             <div class="ht-product-ratting-wrap">
-                                                <span class="ht-product-ratting">
-                                                    <span class="ht-product-user-ratting" style="width: 100%;">
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                    </span>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </span>
+
+                                                <div data-rating-stars="5" data-rating-readonly="true"
+                                                    data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
+                                                </div>
                                             </div>
+
+
                                         </div>
 
                                     </div>
@@ -309,13 +296,14 @@
         </div>
     </div>
 
-    <div class="testimonial-area pt-80 pb-95 section-margin-1" style="background-image: url(assets/img/bg/bg-1.jpg);">
+    <div class="testimonial-area pt-80 pb-95 section-margin-1" style="background-image: 
+    url({{ asset('images/home/bg-1.jpg') }});">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 ml-auto mr-auto">
                     <div class="testimonial-active owl-carousel nav-style-1">
                         <div class="single-testimonial text-center">
-                            <img src="assets/img/testimonial/testi-1.png" alt="" />
+                            <img src="{{ asset('images/home/testi-1.png') }}" alt="" />
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
                                 گرافیک است. چاپگرها و
@@ -326,12 +314,12 @@
                                 آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
                             </p>
                             <div class="client-info">
-                                <img src="assets/img/icon-img/testi.png" alt="" />
+                                <img src="{{ asset('images/home/testi.png') }}" alt="" />
                                 <h5>لورم ایپسوم</h5>
                             </div>
                         </div>
                         <div class="single-testimonial text-center">
-                            <img src="assets/img/testimonial/testi-2.png" alt="" />
+                            <img src="{{ asset('images/home/testi-2.png') }}" alt="" />
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
                                 گرافیک است. چاپگرها و
@@ -342,7 +330,7 @@
                                 آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
                             </p>
                             <div class="client-info">
-                                <img src="assets/img/icon-img/testi.png" alt="" />
+                                <img src="{{ asset('images/home/testi.png') }}" alt="" />
                                 <h5>لورم ایپسوم</h5>
                             </div>
                         </div>
@@ -352,375 +340,8 @@
         </div>
     </div>
 
-    <div class="product-area pt-95 pb-70">
-        <div class="container">
-            <div class="section-title text-center pb-60">
-                <h2>لورم ایپسوم</h2>
-                <p>
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                    چاپگرها و متون
-                    بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
-                </p>
-            </div>
-            <div class="arrivals-wrap scroll-zoom">
-                <div class="ht-products product-slider-active owl-carousel">
-                    <!--Product Start-->
-                    <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
-                        <div class="ht-product-inner">
-                            <div class="ht-product-image-wrap">
-                                <a href="product-details.html" class="ht-product-image">
-                                    <img src="assets/img/product/product-1.svg" alt="Universal Product Style" />
-                                </a>
-                                <div class="ht-product-action">
-                                    <ul>
-                                        <li>
-                                            <a href="#" data-toggle="modal" data-target="#exampleModal"><i
-                                                    class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">
-                                                    مشاهده سریع
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-heart"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به
-                                                    علاقه مندی ها </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-refresh"></i><span
-                                                    class="ht-product-action-tooltip"> مقایسه
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-bag"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به سبد
-                                                    خرید </span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="ht-product-content">
-                                <div class="ht-product-content-inner">
-                                    <div class="ht-product-categories">
-                                        <a href="#">لورم</a>
-                                    </div>
-                                    <h4 class="ht-product-title text-right">
-                                        <a href="product-details.html"> لورم ایپسوم </a>
-                                    </h4>
-                                    <div class="ht-product-price">
-                                        <span class="new">
-                                            55,000
-                                            تومان
-                                        </span>
-                                        <span class="old">
-                                            75,000
-                                            تومان
-                                        </span>
-                                    </div>
-                                    <div class="ht-product-ratting-wrap">
-                                        <span class="ht-product-ratting">
-                                            <span class="ht-product-user-ratting" style="width: 100%;">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </span>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </span>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <!--Product End-->
-                    <!--Product Start-->
-                    <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
-                        <div class="ht-product-inner">
-                            <div class="ht-product-image-wrap">
-                                <a href="product-details.html" class="ht-product-image">
-                                    <img src="assets/img/product/product-2.svg" alt="Universal Product Style" />
-                                </a>
-                                <div class="ht-product-action">
-                                    <ul>
-                                        <li>
-                                            <a href="#" data-toggle="modal" data-target="#exampleModal"><i
-                                                    class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">
-                                                    مشاهده سریع
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-heart"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به
-                                                    علاقه مندی ها </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-refresh"></i><span
-                                                    class="ht-product-action-tooltip"> مقایسه
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-bag"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به سبد
-                                                    خرید </span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="ht-product-content">
-                                <div class="ht-product-content-inner">
-                                    <div class="ht-product-categories">
-                                        <a href="#">لورم </a>
-                                    </div>
-                                    <h4 class="ht-product-title text-right">
-                                        <a href="product-details.html">لورم ایپسوم</a>
-                                    </h4>
-                                    <div class="ht-product-price">
-                                        <span class="new">
-                                            25,000
-                                            تومان
-                                        </span>
-                                    </div>
-                                    <div class="ht-product-ratting-wrap">
-                                        <span class="ht-product-ratting">
-                                            <span class="ht-product-user-ratting" style="width: 100%;">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </span>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!--Product End-->
-                    <!--Product Start-->
-                    <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
-                        <div class="ht-product-inner">
-                            <div class="ht-product-image-wrap">
-                                <a href="product-details.html" class="ht-product-image">
-                                    <img src="assets/img/product/product-3.svg" alt="Universal Product Style" />
-                                </a>
-                                <div class="ht-product-action">
-                                    <ul>
-                                        <li>
-                                            <a href="#" data-toggle="modal" data-target="#exampleModal"><i
-                                                    class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">
-                                                    مشاهده سریع
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-heart"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به
-                                                    علاقه مندی ها </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-refresh"></i><span
-                                                    class="ht-product-action-tooltip"> مقایسه
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-bag"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به سبد
-                                                    خرید </span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="ht-product-content">
-                                <div class="ht-product-content-inner">
-                                    <div class="ht-product-categories">
-                                        <a href="#">لورم</a>
-                                    </div>
-                                    <h4 class="ht-product-title text-right">
-                                        <a href="product-details.html">لورم ایپسوم</a>
-                                    </h4>
-                                    <div class="ht-product-price">
-                                        <span class="new">
-                                            60,000
-                                            تومان
-                                        </span>
-                                        <span class="old">
-                                            90,000
-                                            تومان
-                                        </span>
-                                    </div>
-                                    <div class="ht-product-ratting-wrap">
-                                        <span class="ht-product-ratting">
-                                            <span class="ht-product-user-ratting" style="width: 100%;">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </span>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!--Product End-->
-                    <!--Product Start-->
-                    <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
-                        <div class="ht-product-inner">
-                            <div class="ht-product-image-wrap">
-                                <a href="product-details.html" class="ht-product-image">
-                                    <img src="assets/img/product/product-4.svg" alt="Universal Product Style" />
-                                </a>
-                                <div class="ht-product-action">
-                                    <ul>
-                                        <li>
-                                            <a href="#" data-toggle="modal" data-target="#exampleModal"><i
-                                                    class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">
-                                                    مشاهده سریع
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-heart"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به
-                                                    علاقه مندی ها </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-refresh"></i><span
-                                                    class="ht-product-action-tooltip"> مقایسه
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-bag"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به سبد
-                                                    خرید </span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="ht-product-content">
-                                <div class="ht-product-content-inner">
-                                    <div class="ht-product-categories">
-                                        <a href="#">لورم</a>
-                                    </div>
-                                    <h4 class="ht-product-title text-right">
-                                        <a href="product-details.html">لورم ایپسوم</a>
-                                    </h4>
-                                    <div class="ht-product-price">
-                                        <span class="new">
-                                            60,000
-                                            تومان
-                                        </span>
-                                    </div>
-                                    <div class="ht-product-ratting-wrap">
-                                        <span class="ht-product-ratting">
-                                            <span class="ht-product-user-ratting" style="width: 100%;">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </span>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Product End-->
-                    <!--Product Start-->
-                    <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
-                        <div class="ht-product-inner">
-                            <div class="ht-product-image-wrap">
-                                <a href="product-details.html" class="ht-product-image">
-                                    <img src="assets/img/product/product-2.svg" alt="Universal Product Style" />
-                                </a>
-                                <div class="ht-product-action">
-                                    <ul>
-                                        <li>
-                                            <a href="#" data-toggle="modal" data-target="#exampleModal"><i
-                                                    class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">
-                                                    مشاهده سریع
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-heart"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به
-                                                    علاقه مندی ها </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-refresh"></i><span
-                                                    class="ht-product-action-tooltip"> مقایسه
-                                                </span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-bag"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به سبد
-                                                    خرید </span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="ht-product-content">
-                                <div class="ht-product-content-inner">
-                                    <div class="ht-product-categories">
-                                        <a href="#">لورم </a>
-                                    </div>
-                                    <h4 class="ht-product-title text-right">
-                                        <a href="product-details.html">لورم ایپسوم</a>
-                                    </h4>
-                                    <div class="ht-product-price">
-                                        <span class="new">
-                                            60,000
-                                            تومان
-                                        </span>
-                                    </div>
-                                    <div class="ht-product-ratting-wrap">
-                                        <span class="ht-product-ratting">
-                                            <span class="ht-product-user-ratting" style="width: 100%;">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                            </span>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Product End-->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="banner-area pb-120">
+    <div class="banner-area pt-80 pb-120">
         <div class="container">
             <div class="row">
                 @foreach ($indexTopBotomBanners as $banner)
@@ -749,7 +370,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40">
                         <div class="feature-icon">
-                            <img src="assets/img/icon-img/free-shipping.png" alt="" />
+                            <img src="{{ asset('images/home/free-shipping.png') }}" alt="" />
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>
@@ -760,7 +381,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40 pl-50">
                         <div class="feature-icon">
-                            <img src="assets/img/icon-img/support.png" alt="" />
+                            <img src="{{ asset('images/home/support.png') }}" alt="" />
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>
@@ -771,7 +392,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40">
                         <div class="feature-icon">
-                            <img src="assets/img/icon-img/security.png" alt="" />
+                            <img src="{{ asset('images/home/security.png') }}" alt="" />
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>
@@ -823,13 +444,12 @@
                                         @endif
                                     </div>
                                     <div class="pro-details-rating-wrap">
-                                        <div class="pro-details-rating">
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
+                                            <div
+                                             data-rating-stars="5"
+                                              data-rating-readonly="true"
+                                                data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
+                                            </div>
+                                        <span class="mx-3" >|</span>
                                         <span>3 دیدگاه</span>
                                     </div>
                                     <p class="text-right">
@@ -915,7 +535,7 @@
                             <div class="col-md-5 col-sm-12 col-xs-12">
                                 <div class="tab-content quickview-big-img">
                                     <div id="pro-primary-{{ $product->id }}" class="tab-pane fade show active">
-                                        <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->image) }}"
+                                        <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                             alt="" />
                                     </div>
                                     @foreach ($product->images as $image)
@@ -930,12 +550,12 @@
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
                                         <a class="active" data-toggle="tab" href="#pro-primary-{{ $product->id }}"><img
-                                                src="{{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $product->image) }}"
+                                                src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                                 alt="" />
                                         </a>
-                                        @foreach ($product->image as $image)
-                                            <a data-toggle="tab" href="#pro-2"><img
-                                                    src="{{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                                        @foreach ($product->images as $image)
+                                            <a data-toggle="tab" href="#pro-{{ $image->id }}"><img
+                                                    src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
                                                     alt="" />
                                             </a>
                                         @endforeach
