@@ -13,7 +13,7 @@ class Product extends Model
     use HasFactory, Sluggable;
     protected $table = "products";
     protected $guarded = [];
-    protected $appends = ['quantity_check' , 'sale_check' , 'price_check'];
+    protected $appends = ['quantity_check', 'sale_check', 'price_check'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -34,7 +34,40 @@ class Product extends Model
         return $is_active ? 'فعال' : 'غیر فعال';
     }
 
-   
+    public function scopeFilter($query)
+    {
+
+        if (request()->has('attribute')) {
+            foreach (request()->attribute as $attribue) {
+                $query->whereHas('attributes', function ($query) use($attribue) {
+                    foreach (explode('-',$attribue) as $index => $item) {
+                        if ($index == 0) {
+                            $query->where('value', $item);
+                        } else {
+                            $query->orWhere('value', $item);
+                        };
+                    }
+                });
+            }
+        }
+
+
+        if (request()->has('variation')) {
+            $query->whereHas('variations', function ($query) {
+                foreach (explode('-', request()->variation) as $index => $variation) {
+                    if ($index == 0) {
+                        $query->where('value', $variation);
+                    } else {
+                        $query->orWhere('value', $variation);
+                    };
+                }
+            });
+        }
+        // dd($query->toSql());
+        return $query;
+    }
+
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'product_tag');
@@ -69,27 +102,26 @@ class Product extends Model
         return $this->hasMany(ProductRate::class,);
     }
 
-     public function getQuantityCheckAttribute()
+    public function getQuantityCheckAttribute()
     {
-        return $this->variations()->where('quantity' , '>' ,0)->first() ?? 0 ;
+        return $this->variations()->where('quantity', '>', 0)->first() ?? 0;
     }
 
-     public function getSaleCheckAttribute()
-    {
-        return $this->variations()
-        ->where('quantity' , '>' ,0)
-        ->where('sale_price' ,'!=' , null)
-        ->where('date_on_sale_to' , '>' ,Carbon::now())
-        ->orderBy('sale_price')
-        ->first() ?? false ;
-    }
-
-     public function getPriceCheckAttribute()
+    public function getSaleCheckAttribute()
     {
         return $this->variations()
-        ->where('quantity' , '>' ,0)
-        ->orderBy('price')
-        ->first() ?? false ;
+            ->where('quantity', '>', 0)
+            ->where('sale_price', '!=', null)
+            ->where('date_on_sale_to', '>', Carbon::now())
+            ->orderBy('sale_price')
+            ->first() ?? false;
     }
 
+    public function getPriceCheckAttribute()
+    {
+        return $this->variations()
+            ->where('quantity', '>', 0)
+            ->orderBy('price')
+            ->first() ?? false;
+    }
 }
