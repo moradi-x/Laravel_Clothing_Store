@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Fortify;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::useBootstrap();
+        Paginator::defaultView('home.sections.pagination');
+
+        Fortify::loginView(function () {
+            return view('auth.login');
+        });
     }
+
+
+    /**
+     * Bootstrap any application services.
+     */
 }

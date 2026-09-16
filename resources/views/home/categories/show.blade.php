@@ -60,7 +60,6 @@
         })
 
         $('.variation-select').on('change', function() {
-
             // وریشن انتخاب شده
             let variation = JSON.parse(this.value);
 
@@ -90,6 +89,13 @@
             $('.quantity-input').attr('data-max', variation.quantity);
             $('.quantity-input').val(1);
         });
+
+        $('#pagination li a').map(function(){
+            let decideUrl = decodeURIComponent($(this).attr('href'));
+            if($(this).attr('href') != undefined ){
+                $(this).attr('href', decideUrl);
+            }
+        })
     </script>
 @endsection
 
@@ -231,7 +237,7 @@
                                             class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                             <div class="ht-product-inner">
                                                 <div class="ht-product-image-wrap">
-                                                    <a href="product-details.html" class="ht-product-image">
+                                                    <a href="{{ route('home.products.show' , ['product' => $product->slug] ) }}" class="ht-product-image">
                                                         <img src=" {{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }} "
                                                             alt="{{ $product->name }}  " />
                                                     </a>
@@ -309,13 +315,8 @@
 
                             </div>
 
-                            <div class="pro-pagination-style text-center mt-30">
-                                <ul class="d-flex justify-content-center">
-                                    <li><a class="prev" href="#"><i class="sli sli-arrow-left"></i></a></li>
-                                    <li><a class="active" href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a class="next" href="#"><i class="sli sli-arrow-right"></i></a></li>
-                                </ul>
+                            <div id="pagination" class="pro-pagination-style text-center mt-30">
+                                {{ $products->withQueryString()->links()  }}
                             </div>
 
                         </div>

@@ -4,7 +4,7 @@
               <div class="row">
                   <div class="col-xl-2 col-lg-2">
                       <div class="logo pt-40">
-                          <a href="index.html">
+                          <a href="{{ route('home.index') }}">
                               <h3 class="font-weight-bold"> moradix</h3>
                           </a>
                       </div>
@@ -173,7 +173,7 @@
               <div class="row align-items-center">
                   <div class="col-6">
                       <div class="mobile-logo">
-                          <a href="index.html">
+                          <a href="{{ route('home.index') }}">
                               <h4 class="font-weight-bold">sduio moradix</h4>
                           </a>
                       </div>

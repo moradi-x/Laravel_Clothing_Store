@@ -39,8 +39,8 @@ class Product extends Model
 
         if (request()->has('attribute')) {
             foreach (request()->attribute as $attribue) {
-                $query->whereHas('attributes', function ($query) use($attribue) {
-                    foreach (explode('-',$attribue) as $index => $item) {
+                $query->whereHas('attributes', function ($query) use ($attribue) {
+                    foreach (explode('-', $attribue) as $index => $item) {
                         if ($index == 0) {
                             $query->where('value', $item);
                         } else {
@@ -63,8 +63,44 @@ class Product extends Model
                 }
             });
         }
+
+        if (request()->has('sortBy')) {
+            $sortBy = request()->sortBy;
+            switch ($sortBy) {
+                case 'max':
+                    $query->orderByDesc(
+                        ProductVariation::select('price')->whereColumn('product_variations.product_id', 'products.id')->orderBy('sale_price', 'desc')->take(1)
+                    );
+                    break;
+                case 'min':
+                    $query->orderBy(
+                        ProductVariation::select('price')->whereColumn('product_variations.product_id', 'products.id')->orderBy('sale_price', 'desc')->take(1)
+                    );
+                    break;
+                case 'latest':
+                    $query->latest();
+                    break;
+                case 'oldest':
+                    $query->oldest();
+                    break;
+                default:
+                    $query;
+                    break;
+            }
+        }
+
+
         // dd($query->toSql());
         return $query;
+    }
+
+    public function scopeSearch($query){
+
+        $keyword = request()->search ;
+        if (request()->has('search') && trim($keyword) != '' ) {
+            $query->where('name','LIKE' , '%' . trim($keyword) . '%');
+        }
+        return $query ;
     }
 
 
