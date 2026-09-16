@@ -21,7 +21,7 @@ class CategorySeeder extends Seeder
 
         // پوشاک مردانه
         $men = Category::create([
-            'parent_id' => $clothing->id,
+            'parent_id' => 0,
             'name' => 'مردانه',
             'slug' => 'men',
             'description' => 'انواع پوشاک مردانه',
@@ -31,7 +31,7 @@ class CategorySeeder extends Seeder
 
         // پوشاک زنانه
         $women = Category::create([
-            'parent_id' => $clothing->id,
+            'parent_id' => 0,
             'name' => 'زنانه',
             'slug' => 'women',
             'description' => 'انواع پوشاک زنانه',
