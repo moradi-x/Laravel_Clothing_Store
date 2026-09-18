@@ -64,7 +64,7 @@
                                             @enderror
                                             <div class="button-box">
                                                 <button type="submit">عضویت</button>
-                                                <a href="index.html" class="btn btn-google btn-block mt-4">
+                                                <a href="{{ route('provider.login' , ['provider' => 'google' ] ) }}" class="btn btn-google btn-block mt-4">
                                                     <i class="sli sli-social-google"></i>
                                                     ایجاد اکانت با گوگل
                                                 </a>
