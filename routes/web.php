@@ -13,6 +13,9 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use Illuminate\Support\Facades\Route;
 
+use Ipe\Sdk\Facades\SmsIr;
+
+
 Route::get('/admin-panel/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard');
@@ -49,11 +52,24 @@ Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
         ->name('products.category.update');
 });
 
-Route::get('/',[HomeController::class , 'index'])->name('home.index');
-Route::get('/categories/{category:slug}',[HomeCategoryController::class , 'show'])->name('home.categories.show');
-Route::get('/products/{product:slug}',[HomeProductController::class , 'show'])->name('home.products.show');
-Route::get('login/{provider}', [AuthControllser::class , 'redirectToProvider'])->name('provider.login') ;
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
+Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
+Route::get('login/{provider}', [AuthControllser::class, 'redirectToProvider'])->name('provider.login');
+Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']);
 
-Route::get('/test' , function(){
-    auth()->logout();
+// Route::get('/test', function () {
+//     auth()->logout();
+// });
+
+Route::get('/test', function () {
+    $mobile = "09926245951"; // شماره موبایل گیرنده
+    $templateId = 100000; // شناسه الگو
+    $parameters = [
+        [
+            "name" => "Code",
+            "value" => "1234555"
+        ]
+    ];
+    $response = SmsIr::verifySend($mobile, $templateId, $parameters);
 });
