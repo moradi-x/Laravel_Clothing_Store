@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-lg-4 col-md-3 col-12">
                             <div class="payment-mathod pb-20">
-                                <a href="#"><img src="assets/img/icon-img/payment.png" alt="" /></a>
+                                <a href="#"><img src="#" alt="" /></a>
                             </div>
                         </div>
                     </div>

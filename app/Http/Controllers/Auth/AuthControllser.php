@@ -50,5 +50,17 @@ class AuthControllser extends Controller
         if ($request->method() == 'GET') {
             return view('auth.login');
         };
+        $request->validate([
+            'cellphone' => ['required','iran_mobile'] ,
+        ]);
+
+        $user = User::where('cellphone' , $request->cellphone)->first();
+
+        if (condition) {
+            # code...
+        } else {
+            # code...
+        }
+        
     }
 }

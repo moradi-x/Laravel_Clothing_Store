@@ -4,6 +4,25 @@
     - صفحه ورود
 @endsection
 @section('script')
+    <script>
+        $('#loginForm').submit(function(event) {
+            console.log($('#cellphoneInput').val());
+            event.preventDefault();
+
+            $.post("{{ url('/login') }}", {
+                '_token': "{{ csrf_token() }}",
+                'cellphone': $('#cellphoneInput').val()
+            }, function(response, status) {
+                console.log(response, status);
+
+            }).fail(function(response) {
+                console.log(response.responseJSON.errors.cellphone);
+                $('#cellphoneInput').addClass('mb-1');
+                $('#cellphoneInputError').fadeIn();
+                $('#cellphoneInputErrorText').html(response.responseJSON.errors.cellphone[0]);
+            })
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -36,19 +55,14 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form method="post">
+                                        <form id="loginForm">
+                                            <input id="cellphoneInput" placeholder="شماره تلفن همراه" type="text">
 
-                                            <input placeholder="شماره تلفن همراه" type="text">
-
-                                            <div class="input-error-validation">
-                                                <strong> </strong>
+                                            <div id="cellphoneInputError" class="input-error-validation">
+                                                <strong id="cellphoneInputErrorText"> </strong>
                                             </div>
 
-
-
                                             <div class="button-box d-flex justify-content-between">
-
-
                                                 <button type="submit">ورود</button>
 
                                             </div>

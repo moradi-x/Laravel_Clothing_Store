@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da31bf77396d8359ce94bc6da4383ee4",
+    "content-hash": "612419600a8e90ba6c1c432f6e7b18e4",
     "packages": [
+        {
+            "name": "anetwork/validation",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opencafe/validation.git",
+                "reference": "87e6b5f2cfb883ae214718c677adb1361c0b1069"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opencafe/validation/zipball/87e6b5f2cfb883ae214718c677adb1361c0b1069",
+                "reference": "87e6b5f2cfb883ae214718c677adb1361c0b1069",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.6.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Anetwork\\Validation\\PersianValidationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Anetwork\\Validation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shahrokh Niakan",
+                    "email": "shahrokhniakan@gmail.com"
+                }
+            ],
+            "description": "Laravel persian validation",
+            "support": {
+                "issues": "https://github.com/opencafe/validation/issues",
+                "source": "https://github.com/opencafe/validation/tree/v2.3.0"
+            },
+            "time": "2022-04-25T14:44:03+00:00"
+        },
         {
             "name": "bacon/bacon-qr-code",
             "version": "v3.1.1",
