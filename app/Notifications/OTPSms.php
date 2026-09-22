@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Channels\SmsChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,12 +12,13 @@ class OTPSms extends Notification
 {
     use Queueable;
 
+    public $code ;
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($code)
     {
-        //
+        $this->code = $code ;
     }
 
     /**
@@ -26,7 +28,7 @@ class OTPSms extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return [SmsChannel::class];
     }
 
     /**
@@ -48,7 +50,13 @@ class OTPSms extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+        //
         ];
+    }
+
+    public function ToSms($notifiable){
+        return $this->code ; 
+
+        
     }
 }

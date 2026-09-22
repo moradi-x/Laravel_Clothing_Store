@@ -1,4 +1,4 @@
-@extends('home.layouts.home')
+{{-- @extends('home.layouts.home')
 
 @section('title')
     - صفحه ورود
@@ -80,4 +80,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}

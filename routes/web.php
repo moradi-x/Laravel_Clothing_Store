@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\AuthControllser;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
+use App\Models\User;
+use App\Notifications\OTPSms;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 
@@ -56,23 +58,21 @@ Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
-Route::get('login/{provider}', [AuthControllser::class, 'redirectToProvider'])->name('provider.login');
-Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']);
-
+// احراز هویت معمولی
 // Route::get('/test', function () {
 //     auth()->logout();
 // });
+// احراز هویت با اکانت گوگل outh
+// Route::get('login/{provider}', [AuthControllser::class, 'redirectToProvider'])->name('provider.login');
+// Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']); 
+// احراز هویت با otp سامانه پیامکی
+Route::any('login', [AuthControllser::class, 'login'])->name('login') ; 
+
 
 Route::get('/test', function () {
-    // $api = new Ipe\Sdk\Facades\SmsIr(env('SMSIR_API_KEY')) ;
+    
 
-    $mobile = "09926245951"; // شماره موبایل گیرنده
-    $templateId = 469494; // شناسه الگو
-    $parameters = [
-        [
-            "name" => "Code",
-            "value" => "11228"
-        ]
-    ];
-    $response = SmsIr::verifySend($mobile, $templateId, $parameters);
+    $user = User::find(1);
+    $user->notify(new OTPSms(11228));
+
 });
