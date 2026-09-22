@@ -5,6 +5,7 @@
 @endsection
 @section('script')
     <script>
+        let loginToken ;
         $('#loginForm').submit(function(event) {
             console.log($('#cellphoneInput').val());
             event.preventDefault();
@@ -14,9 +15,16 @@
                 'cellphone': $('#cellphoneInput').val()
             }, function(response, status) {
                 console.log(response, status);
+                let loginToken =response.login_token
+                swal({
+                    icon : 'success' ,
+                    text : 'رمز یکبار مصرف شما ارسال شد' ,
+                    button : 'حله!' ,
+                    timer : 2000
+                })
 
             }).fail(function(response) {
-                console.log(response.responseJSON.errors.cellphone);
+                console.log(response.responseJSON);
                 $('#cellphoneInput').addClass('mb-1');
                 $('#cellphoneInputError').fadeIn();
                 $('#cellphoneInputErrorText').html(response.responseJSON.errors.cellphone[0]);

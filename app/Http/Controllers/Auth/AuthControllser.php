@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\OTPSms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -51,16 +52,32 @@ class AuthControllser extends Controller
             return view('auth.login');
         };
         $request->validate([
-            'cellphone' => ['required','iran_mobile'] ,
+            'cellphone' => ['required', 'iran_mobile'],
         ]);
 
-        $user = User::where('cellphone' , $request->cellphone)->first();
 
-        if (condition) {
-            # code...
-        } else {
-            # code...
+        try {
+            $user = User::where('cellphone', $request->cellphone)->first();
+            $OTPCode = mt_rand(100000, 999999);
+            $loginToken = Hash::make('DDKVDsnzljbvlkCFYKJHBYtY(^^FnbvJG$^cv');
+
+            if ($user) {
+                $user->update([
+                    'otp' =>  $OTPCode,
+                    'login_token' => $loginToken
+                ]);
+            } else {
+                $user = User::create([
+                    'cellphone' => $request->cellphone,
+                    'otp' =>  $OTPCode,
+                    'login_token' => $loginToken
+                ]);
+            }
+            $user->notify(new OTPSms($OTPCode));
+            return response(['login_token' => $loginToken], 200);
+        } catch (\Exception $ex) {
+              return response(['errors' => $ex->getMessage()], 422);
+
         }
-        
     }
 }

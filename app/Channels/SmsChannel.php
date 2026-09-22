@@ -24,5 +24,7 @@ class SmsChannel
         ];
 
         $response = SmsIr::verifySend($receptor, $templateId, $parameters);
+
+        return "Done!" ;
     }
 }
