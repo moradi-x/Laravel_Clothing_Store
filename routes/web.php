@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\AuthControllser;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 
 use Ipe\Sdk\Facades\SmsIr;
@@ -63,12 +64,14 @@ Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProvider
 // });
 
 Route::get('/test', function () {
+    // $api = new Ipe\Sdk\Facades\SmsIr(env('SMSIR_API_KEY')) ;
+
     $mobile = "09926245951"; // شماره موبایل گیرنده
-    $templateId = 100000; // شناسه الگو
+    $templateId = 469494; // شناسه الگو
     $parameters = [
         [
             "name" => "Code",
-            "value" => "1234555"
+            "value" => "11228"
         ]
     ];
     $response = SmsIr::verifySend($mobile, $templateId, $parameters);
