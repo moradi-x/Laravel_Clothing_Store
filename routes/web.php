@@ -67,6 +67,7 @@ Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->
 // Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']); 
 // احراز هویت با otp سامانه پیامکی
 Route::any('login', [AuthControllser::class, 'login'])->name('login') ; 
+Route::post('check-otp', [AuthControllser::class, 'checkOtp']) ; 
 
 
 Route::get('/test', function () {

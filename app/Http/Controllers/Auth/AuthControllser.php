@@ -76,8 +76,15 @@ class AuthControllser extends Controller
             $user->notify(new OTPSms($OTPCode));
             return response(['login_token' => $loginToken], 200);
         } catch (\Exception $ex) {
-              return response(['errors' => $ex->getMessage()], 422);
-
+            return response(['errors' => $ex->getMessage()], 422);
         }
+    }
+
+    public function checkOtp(Request $request){
+         $request->validate([
+            'otp' => ['required', 'digits:6'],
+            'login_token' => ['required'],
+        ]);
+        $user = User::where('login_token' , $request->login_token)->firstOrFail();
     }
 }
