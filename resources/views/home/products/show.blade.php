@@ -175,7 +175,7 @@
                 <div class="col-lg-6 col-md-6 order-1 order-sm-1 order-md-2">
                     <div class="product-details-img">
                         <div class="zoompro-border zoompro-span">
-                            <img class="zoompro" 
+                            <img class="zoompro"
                                 src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                 data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                 alt="" />
@@ -185,13 +185,15 @@
                         <div id="gallery" class="mt-20 product-dec-slider">
                             <a data-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                 data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}">
-                                <img width="90"   src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                <img width="90"
+                                    src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                     alt="">
                             </a>
                             @foreach ($product->images as $image)
                                 <a data-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
                                     data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}">
-                                    <img  width="90" src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                                    <img width="90"
+                                        src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
                                         alt="">
                                 </a>
                             @endforeach
@@ -209,32 +211,33 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="description-review-wrapper">
                         <div class="description-review-topbar nav">
-                            <a class="active" data-toggle="tab" href="#des-details1"> توضیحات </a>
+                            <a class="{{ count($errors) > 0 ? '' : 'active' }}" data-toggle="tab" href="#des-details1">
+                                توضیحات </a>
                             <a data-toggle="tab" href="#des-details3"> اطلاعات بیشتر </a>
-                            <a data-toggle="tab" href="#des-details2">
+                            <a class="{{ count($errors) > 0 ? 'active' : '' }}" data-toggle="tab" href="#des-details2">
                                 دیدگاه
                                 (3)
                             </a>
                         </div>
                         <div class="tab-content description-review-bottom">
-                            <div id="des-details1" class="tab-pane active">
+                            <div id="des-details1" class="tab-pane {{ count($errors) > 0 ? '' : 'active' }}">
                                 <div class="product-description-wrapper text-right ">
-                                   {{ $product->description }}
+                                    {{ $product->description }}
                                 </div>
                             </div>
                             <div id="des-details3" class="tab-pane">
                                 <div class="product-anotherinfo-wrapper text-right">
                                     <ul>
-                                         @foreach ($product->attributes()->with('attribute')->get() as $attribute)
-                                    <li> -
-                                        <span> {{ $attribute->attribute->name }} : </span>
-                                        {{ $attribute->value }}
-                                    </li>
-                                @endforeach
+                                        @foreach ($product->attributes()->with('attribute')->get() as $attribute)
+                                            <li> -
+                                                <span> {{ $attribute->attribute->name }} : </span>
+                                                {{ $attribute->value }}
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
-                            <div id="des-details2" class="tab-pane">
+                            <div id="des-details2" class="tab-pane {{ count($errors) > 0 ? 'active' : '' }}">
 
                                 <div class="review-wrapper">
                                     <div class="single-review">
@@ -260,97 +263,26 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="single-review">
-                                        <div class="review-img">
-                                            <img src="assets/img/product-details/client-2.jpg" alt="">
-                                        </div>
-                                        <div class="review-content">
-                                            <p class="text-right">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-                                                ستون و سطرآنچنان که لازم است
-                                            </p>
-                                            <div class="review-top-wrap text-right">
-                                                <div class="review-name">
-                                                    <h4> علی شیخ </h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single-review">
-                                        <div class="review-img">
-                                            <img src="assets/img/product-details/client-3.jpg" alt="">
-                                        </div>
-                                        <div class="review-content text-right">
-                                            <p class="text-right">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-                                                ستون و سطرآنچنان که لازم است
-                                            </p>
-                                            <div class="review-top-wrap">
-                                                <div class="review-name">
-                                                    <h4> علی شیخ </h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="ratting-form-wrapper text-right">
-                                    <span> نوشتن دیدگاه </span>
-
-                                    <div class="star-box-wrap">
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
+                                    <span id="comments"> نوشتن دیدگاه </span>
+                                    <div class=" my-3" id="dataReadonlyReview" data-rating-stars="5"
+                                        data-rating-value="0" data-rating-input="#rateInput">
                                     </div>
 
                                     <div class="ratting-form">
-                                        <form action="#">
+                                        <form action="{{ route('home.comments.store', ['product' => $product->id]) }}"
+                                            method="POST">
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="rating-form-style mb-20">
                                                         <label> متن دیدگاه : </label>
-                                                        <textarea name="Your Review"></textarea>
+                                                        <textarea name="text"></textarea>
                                                     </div>
                                                 </div>
-
+                                                <input id="rateInput" type="hidden" name="rate" value="0">
                                                 <div class="col-lg-12">
                                                     <div class="form-submit">
                                                         <input type="submit" value="ارسال">
@@ -358,8 +290,11 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
 
+                                    </div>
+                                    <div class="mt-3">
+                                        @include('home.sections.errors')
+                                    </div>
                                 </div>
 
                             </div>
@@ -368,7 +303,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="pro-dec-banner">
-                        <a href="#"><img src="{{ asset('images/home/banner-7.png')  }}" alt=""></a>
+                        <a href="#"><img src="{{ asset('images/home/banner-7.png') }}" alt=""></a>
                     </div>
                 </div>
             </div>

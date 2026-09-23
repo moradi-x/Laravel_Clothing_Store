@@ -4,11 +4,13 @@ use App\Http\Controllers\admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthControllser;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
+use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Models\User;
@@ -31,6 +33,7 @@ Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
     Route::resource('tags', TagController::class);
     Route::resource('products', ProductController::class);
     Route::resource('banners', BannerController::class);
+    Route::resource('comments', CommentController::class);
 
     Route::get('/category-attribute/{category}', [CategoryController::class, 'getCategoryAttribute']);
 
@@ -58,6 +61,8 @@ Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
+Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
+
 // احراز هویت معمولی
 // Route::get('/test', function () {
 //     auth()->logout();
