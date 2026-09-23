@@ -8,6 +8,7 @@
         let loginToken;
 
         $('#checkOTPForm').hide();
+        $('#resendOTPButton').hide();
 
         $('#loginForm').submit(function(event) {
             // console.log($('#cellphoneInput').val());
@@ -18,7 +19,7 @@
                 'cellphone': $('#cellphoneInput').val()
             }, function(response, status) {
                 console.log(response, status);
-                let loginToken = response.login_token
+                loginToken = response.login_token
                 swal({
                     icon: 'success',
                     text: 'رمز یکبار مصرف شما ارسال شد',
@@ -28,6 +29,7 @@
 
                 $('#loginForm').fadeOut();
                 $('#checkOTPForm').fadeIn();
+                timer();
 
             }).fail(function(response) {
                 console.log(response.responseJSON);
@@ -42,18 +44,85 @@
             event.preventDefault();
             $.post("{{ url('/check-otp') }}", {
                 '_token': "{{ csrf_token() }}",
-                'otp': $('#checkOTPInput').val(), 
-                'login_tocken'  : loginToken
+                'otp': $('#checkOTPInput').val(),
+                'login_token': loginToken
             }, function(response, status) {
                 console.log(response, status);
+                $(location).attr('href', "{{ route('home.index') }}");
 
             }).fail(function(response) {
                 console.log(response.responseJSON);
                 $('#checkOTPInput').addClass('mb-1');
                 $('#checkOTPInputError').fadeIn();
-                $('#checkOTPInputErrorText').html(response.responseJSON.errors.cellphone[0]);
+                $('#checkOTPInputErrorText').html(response.responseJSON.errors.otp[0]);
             })
         });
+
+        $('#resendOTPButton').click(function(event) {
+            event.preventDefault();
+
+            $.post("{{ url('/resend-otp') }}", {
+                '_token': "{{ csrf_token() }}",
+                'login_token': loginToken
+            }, function(response, status) {
+                console.log(response, status);
+                loginToken = response.login_token
+                swal({
+                    icon: 'success',
+                    text: 'رمز یکبار مصرف شما ارسال شد',
+                    button: 'حله!',
+                    timer: 2000
+                })
+
+                $('#resendOTPButton').fadeOut();
+                timer();
+                $('#resendOTPTime').fadeIn();
+
+            }).fail(function(response) {
+                console.log(response.responseJSON);
+
+                swal({
+                    icon: 'error',
+                    text: 'مشکل در ارسال دوباره رمز یکبار مصرف , مجددا تلاش',
+                    button: 'حله!',
+                    timer: 2000
+                })
+            })
+        });
+
+
+
+        function timer() {
+
+            let time = 60;
+
+            $('#resendOTPButton').prop('disabled', true);
+            $('#resendOTPButton').hide();
+            $('#resendOTPTime').show();
+
+            let timer = setInterval(function() {
+
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+
+                minutes = String(minutes).padStart(2, '0');
+                seconds = String(seconds).padStart(2, '0');
+
+                $('#resendOTPTime').text(minutes + ':' + seconds);
+
+                time--;
+
+                if (time < 0) {
+
+                    clearInterval(timer);
+
+                    $('#resendOTPTime').hide();
+                    $('#resendOTPButton').show();
+                    $('#resendOTPButton').prop('disabled', false);
+                }
+
+            }, 1000);
+        }
     </script>
 @endsection
 
@@ -109,7 +178,10 @@
 
                                             <div class="button-box d-flex justify-content-between">
                                                 <button type="submit">ورود</button>
-
+                                                <div>
+                                                    <button id="resendOTPButton" type="submit">ارسال مجدد</button>
+                                                    <span id="resendOTPTime"></span>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
