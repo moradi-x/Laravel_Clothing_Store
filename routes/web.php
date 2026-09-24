@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 use Ipe\Sdk\Facades\SmsIr;
 
 
-Route::get('/admin-panel/dashboard', function () {
+Route::get('/admin-panel/management/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
@@ -34,6 +34,8 @@ Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('banners', BannerController::class);
     Route::resource('comments', CommentController::class);
+
+    Route::get('/comments/{comment}/change-approve', [CommentController::class, 'changeApprove'])->name('comments.change-approve');
 
     Route::get('/category-attribute/{category}', [CategoryController::class, 'getCategoryAttribute']);
 

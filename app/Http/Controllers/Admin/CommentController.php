@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,7 +13,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+
+        $comments = Comment::oldest()->paginate(20);
+        return view('admin.comments.index', compact('comments'));
     }
 
     /**
@@ -34,9 +37,9 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comment $comment)
     {
-        //
+        return view('admin.comments.show', compact('comment'));
     }
 
     /**
@@ -62,4 +65,10 @@ class CommentController extends Controller
     {
         //
     }
+
+    public function changeApprove(Comment $comment)
+    {
+        //
+    }
+
 }

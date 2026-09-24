@@ -7,8 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-     use HasFactory;
-    protected $table = "comments" ;
+    use HasFactory;
+    protected $table = "comments";
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+
+    public function getApprovedAttribute($approved)
+    {
+        return $approved ? 'تایید شده' : ' تایید نشده';
+    }
 }

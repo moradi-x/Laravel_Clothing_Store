@@ -46,11 +46,22 @@
                 <a class="collapse-item" href="{{ route('admin.products.index') }}"> محصولات</a>
                 <a class="collapse-item" href="{{ route('admin.attributes.index') }}">ویژگی ها</a>
                 <a class="collapse-item" href="{{ route('admin.tags.index') }}">تگ ها</a>
+                <a class="collapse-item" href="{{ route('admin.comments.index') }}">کامنت ها</a>
             </div>
         </div>
     </li>
 
     
+
+    <!-- Nav Item - Banners -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('admin.banners.index') }}">
+            <i class="fas fa-fw fa-image"></i>
+            <span> بنر ها </span></a>
+    </li>
+
+
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -58,12 +69,7 @@
     <div class="sidebar-heading">
         تنظیمات
     </div>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.banners.index') }}">
-            <i class="fas fa-store"></i>
-            <span> بنر ها </span>
-        </a>
-    </li>
+  
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
