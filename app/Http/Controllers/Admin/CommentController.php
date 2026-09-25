@@ -61,14 +61,29 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comment $comment)
     {
-        //
+        
+        $comment->delete();
+
+         alert()->success(' کامنت مورد نظر حذف شد ', 'با تشکر');
+
+        return redirect()->route('admin.comments.index');
     }
 
-    public function changeApprove(Comment $comment)
-    {
-        //
-    }
+    public function changeApprove(Comment $comment){
+        if($comment->getRawOriginal(('approved'))){
+            $comment->update([
+                'approved' => 0 ,
+            ]);
+        }else{
+            $comment->update([
+                'approved' => 1 ,
+            ]);
+        }
 
+         alert()->success('وضعیت کامنت مورد نظر تغییر کرد ', 'با تشکر');
+
+        return redirect()->route('admin.comments.index');
+    }
 }

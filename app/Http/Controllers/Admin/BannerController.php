@@ -125,8 +125,8 @@ class BannerController extends Controller
 
         $banner->delete();
 
-        alert()->success('بنر مورد نظر با موفقیت حذف شد', 'با تشکر');
+        alert()->success('بنر مورد نظر حذف شد', 'با تشکر');
 
-        return redirect()->back();
+        return redirect()->route('admin.banners.index');
     }
 }

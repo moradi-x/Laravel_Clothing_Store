@@ -90,7 +90,9 @@
                                 data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                             </div>
                             <span class="mx-3">|</span>
-                            <span>3 دیدگاه</span>
+                            <span>  دیدگاه
+                                ({{ $product->approvedComments()->count() }})
+                            </span>
                         </div>
 
                         <p class="text-right">{{ $product->description }}
@@ -216,7 +218,7 @@
                             <a data-toggle="tab" href="#des-details3"> اطلاعات بیشتر </a>
                             <a class="{{ count($errors) > 0 ? 'active' : '' }}" data-toggle="tab" href="#des-details2">
                                 دیدگاه
-                                (3)
+                                ({{ $product->approvedComments()->count() }})
                             </a>
                         </div>
                         <div class="tab-content description-review-bottom">
@@ -241,6 +243,11 @@
 
                                 <div class="review-wrapper">
                                     <div class="single-review">
+                                        @forelse ( $product->approvedComments() as $comments)
+                                            
+                                        @empty
+                                            
+                                        @endforelse
                                         <div class="review-img">
                                             <img src="assets/img/product-details/client-1.jpg" alt="">
                                         </div>

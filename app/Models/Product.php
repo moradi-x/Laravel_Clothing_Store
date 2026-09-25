@@ -138,6 +138,12 @@ class Product extends Model
         return $this->hasMany(ProductRate::class,);
     }
 
+    public function approvedComments()
+    {
+        // کامنت های تایید شده برای این محصول 
+        return $this->hasMany(Comment::class)->where('approved' , 1);
+    }
+
     public function getQuantityCheckAttribute()
     {
         return $this->variations()->where('quantity', '>', 0)->first() ?? 0;
