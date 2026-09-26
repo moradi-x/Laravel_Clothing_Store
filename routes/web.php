@@ -14,7 +14,9 @@ use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\UserProfileController;
+use App\Http\Controllers\Home\WishlistController;
 use App\Models\User;
+use App\Models\Wishlist;
 use App\Notifications\OTPSms;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
@@ -66,7 +68,9 @@ Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
 Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 
+// علاقه مندی های محصول 
 Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
 
 // احراز هویت معمولی
 // Route::get('/test', function () {
@@ -84,6 +88,7 @@ Route::post('resend-otp', [AuthControllser::class, 'resendOtp']) ;
 Route::prefix('/profile')->name('home.')->group(function () {
   Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
   Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
+  Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
 
 });
 Route::get('/test', function () {

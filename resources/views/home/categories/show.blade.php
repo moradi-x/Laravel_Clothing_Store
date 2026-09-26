@@ -90,9 +90,9 @@
             $('.quantity-input').val(1);
         });
 
-        $('#pagination li a').map(function(){
+        $('#pagination li a').map(function() {
             let decideUrl = decodeURIComponent($(this).attr('href'));
-            if($(this).attr('href') != undefined ){
+            if ($(this).attr('href') != undefined) {
                 $(this).attr('href', decideUrl);
             }
         })
@@ -110,7 +110,7 @@
                     <li class="active">فروشگاه </li>
                 </ul>
             </div>
-        </div> 
+        </div>
     </div>
 
     <div class="shop-area pt-95 pb-100">
@@ -237,7 +237,8 @@
                                             class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                             <div class="ht-product-inner">
                                                 <div class="ht-product-image-wrap">
-                                                    <a href="{{ route('home.products.show' , ['product' => $product->slug] ) }}" class="ht-product-image">
+                                                    <a href="{{ route('home.products.show', ['product' => $product->slug]) }}"
+                                                        class="ht-product-image">
                                                         <img src=" {{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }} "
                                                             alt="{{ $product->name }}  " />
                                                     </a>
@@ -251,9 +252,30 @@
                                                                     </span></a>
                                                             </li>
                                                             <li>
-                                                                <a href="#"><i class="sli sli-heart"></i><span
-                                                                        class="ht-product-action-tooltip"> افزودن به
-                                                                        علاقه مندی ها </span></a>
+                                                                @auth
+                                                                    @if ($product->checkUserWishlist(auth()->id()))
+                                                                        <a
+                                                                            href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}"><i
+                                                                                class="fas fa-heart" style="color:red"></i><span
+                                                                                class="ht-product-action-tooltip">
+                                                                                به لیست علاقه مندی ها اضافه شده هست
+
+                                                                            </span></a>
+                                                                    @else
+                                                                        <a
+                                                                            href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                                class="sli sli-heart"></i><span
+                                                                                class="ht-product-action-tooltip"> افزودن به
+                                                                                علاقه مندی ها </span></a>
+                                                                    @endif
+                                                                @else
+                                                                    <a
+                                                                        href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                            class="sli sli-heart"></i><span
+                                                                            class="ht-product-action-tooltip"> افزودن به
+                                                                            علاقه مندی ها </span></a>
+
+                                                                @endauth
                                                             </li>
                                                             <li>
                                                                 <a href="#"><i class="sli sli-refresh"></i><span
@@ -316,7 +338,7 @@
                             </div>
 
                             <div id="pagination" class="pro-pagination-style text-center mt-30">
-                                {{ $products->withQueryString()->links()  }}
+                                {{ $products->withQueryString()->links() }}
                             </div>
 
                         </div>
@@ -379,9 +401,7 @@
                                                 data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                                             </div>
                                             <span class="mx-3">|</span>
-                                            <span> دیدگاه
-                                                ({{ $product->approvedComments()->count() }})
-                                            </span>
+                                            <span> دیدگاه</span>
                                         </div>
                                         <p class="text-right">
                                             {{ $product->description }}
@@ -429,80 +449,99 @@
                                                     <a href="#">افزودن به سبد خرید</a>
                                                 </div>
                                                 <div class="pro-details-wishlist">
-                                                    <a title="Add To Wishlist" href="#"><i
-                                                            class="sli sli-heart"></i></a>
-                                                </div>
-                                                <div class="pro-details-compare">
-                                                    <a title="Add To Compare" href="#"><i
-                                                            class="sli sli-refresh"></i></a>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="not-in-stock">
-                                                <p class=" text-white">ناموجود</p>
-                                            </div>
-                                        @endif
+                                                    @auth @if ($product->checkUserWishlist(auth()->id()))
+                                                        <a
+                                                            href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}">
+                                                            <i class="fas fa-heart" style="color:red">
+                                                            </i>
+                                                        </a>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('home.wishlist.add', ['product' => $product->id]) }}">
+                                                            <i class="sli sli-heart">
+                                                            </i>
+                                                        </a>
+                                                    @endif
+                                                @else
+                                                    <a
+                                                        href="{{ route('home.wishlist.add', ['product' => $product->id]) }}">
+                                                        <i class="sli sli-heart">
+                                                        </i>
+                                                    </a>
 
-                                        <div class="pro-details-meta">
-                                            <span>دسته بندی :</span>
-                                            <ul>
-                                                <li><a href="#">{{ $product->category->parent->name }},
-                                                        {{ $product->category->name }} </a></li>
-                                            </ul>
+                                                @endauth
+                                            </div>
+                                            <div class="pro-details-compare">
+                                                <a title="Add To Compare" href="#"><i
+                                                        class="sli sli-refresh"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="pro-details-meta">
-                                            <span>تگ ها :</span>
-                                            <ul>
+                                    @else
+                                        <div class="not-in-stock">
+                                            <p class=" text-white">ناموجود</p>
+                                        </div>
+                                    @endif
 
-                                                @foreach ($product->tags as $tag)
-                                                    <li><a href="#">
-                                                            {{ $tag->name }}{{ $loop->last ? '' : ',' }}
-                                                        </a></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                                    <div class="pro-details-meta">
+                                        <span>دسته بندی :</span>
+                                        <ul>
+                                            <li><a href="#">{{ $product->category->parent->name }},
+                                                    {{ $product->category->name }} </a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="pro-details-meta">
+                                        <span>تگ ها :</span>
+                                        <ul>
+
+                                            @foreach ($product->tags as $tag)
+                                                <li><a href="#">
+                                                        {{ $tag->name }}{{ $loop->last ? '' : ',' }}
+                                                    </a></li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-5 col-sm-12 col-xs-12">
-                                    <div class="tab-content quickview-big-img">
-                                        <div id="pro-primary-{{ $product->id }}" class="tab-pane fade show active">
-                                            <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                            <div class="col-md-5 col-sm-12 col-xs-12">
+                                <div class="tab-content quickview-big-img">
+                                    <div id="pro-primary-{{ $product->id }}" class="tab-pane fade show active">
+                                        <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                            alt="" />
+                                    </div>
+                                    @foreach ($product->images as $image)
+                                        <div id="pro-{{ $image->id }}" class="tab-pane fade">
+                                            <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
                                                 alt="" />
                                         </div>
+                                    @endforeach
+                                </div>
+                                <!-- Thumbnail Large Image End -->
+                                <!-- Thumbnail Image End -->
+                                <div class="quickview-wrap mt-15">
+                                    <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
+                                        <a class="active" data-toggle="tab"
+                                            href="#pro-primary-{{ $product->id }}"><img
+                                                src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                                alt="" />
+                                        </a>
                                         @foreach ($product->images as $image)
-                                            <div id="pro-{{ $image->id }}" class="tab-pane fade">
-                                                <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
-                                                    alt="" />
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <!-- Thumbnail Large Image End -->
-                                    <!-- Thumbnail Image End -->
-                                    <div class="quickview-wrap mt-15">
-                                        <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
-                                            <a class="active" data-toggle="tab"
-                                                href="#pro-primary-{{ $product->id }}"><img
-                                                    src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                            <a data-toggle="tab" href="#pro-{{ $image->id }}"><img
+                                                    src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
                                                     alt="" />
                                             </a>
-                                            @foreach ($product->images as $image)
-                                                <a data-toggle="tab" href="#pro-{{ $image->id }}"><img
-                                                        src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
-                                                        alt="" />
-                                                </a>
-                                            @endforeach
+                                        @endforeach
 
-                                        </div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-        @endforeach
-        <!-- Modal end -->
-    </div>
+        </div>
+    @endforeach
+    <!-- Modal end -->
+</div>
 @endsection

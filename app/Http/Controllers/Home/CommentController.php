@@ -16,14 +16,8 @@ class CommentController extends Controller
     public function usersProfileIndex()
     {
         //  نمایش کامنت های خود یزور در پروفایلش
-        $comments = Comment::where('user_id' , auth()->id())->where('approved', 1)->get();
-       return view('home.users_profile.comments' , compact('comments'));
-    }
-
-
-    public function create()
-    {
-        //
+        $comments = Comment::where('user_id', auth()->id())->where('approved', 1)->get();
+        return view('home.users_profile.comments', compact('comments'));
     }
 
 
@@ -75,29 +69,5 @@ class CommentController extends Controller
             alert()->warning('دقت کنید',  'برای ثبت نظر باید نیاز است در ابتدا  وارد سایت شوید  ')->persistent('حله');
             return redirect()->back();
         }
-    }
-
-
-    public function show(string $id)
-    {
-        //
-    }
-
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-
-    public function destroy(string $id)
-    {
-        //
     }
 }

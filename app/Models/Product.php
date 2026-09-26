@@ -144,6 +144,12 @@ class Product extends Model
         return $this->hasMany(Comment::class)->where('approved' , 1);
     }
 
+    public function checkUserWishlist($userId)
+    {
+        // چک کن کاربر قبلا این محصول رو به لیست علاثه مندی اظافه کرده یا نه ترو فالس برگردون 
+        return $this->hasMany(Wishlist::class)->where('user_id' , $userId)->exists();
+    }
+
     public function getQuantityCheckAttribute()
     {
         return $this->variations()->where('quantity', '>', 0)->first() ?? 0;

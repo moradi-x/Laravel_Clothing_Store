@@ -96,7 +96,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="single-banner mb-30 scroll-zoom">
                             <a href="{{ $banner->button_link }}">
-                                <img class="animated" src=" {{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $banner->image) }} "
+                                <img class="animated"
+                                    src=" {{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $banner->image) }} "
                                     alt="" /></a>
                             <div
                                 class=" {{ $loop->last ? 'banner-content-3 banner-position-7' : 'banner-content banner-position-6 text-right' }} ">
@@ -139,7 +140,8 @@
                             <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                 <div class="ht-product-inner">
                                     <div class="ht-product-image-wrap">
-                                        <a href="{{ route('home.products.show' , ['product' => $product->slug] ) }}" class="ht-product-image">
+                                        <a href="{{ route('home.products.show', ['product' => $product->slug]) }}"
+                                            class="ht-product-image">
                                             <img src=" {{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }} "
                                                 alt="{{ $product->name }}  " />
                                         </a>
@@ -153,9 +155,30 @@
                                                         </span></a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"><i class="sli sli-heart"></i><span
-                                                            class="ht-product-action-tooltip"> افزودن به
-                                                            علاقه مندی ها </span></a>
+                                                    @auth
+                                                        @if ($product->checkUserWishlist(auth()->id()))
+                                                            <a
+                                                                href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}"><i
+                                                                    class="fas fa-heart" style="color:red"></i><span
+                                                                    class="ht-product-action-tooltip">
+                                                                    به لیست علاقه مندی ها اضافه شده هست
+
+                                                                </span></a>
+                                                        @else
+                                                            <a
+                                                                href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                    class="sli sli-heart"></i><span
+                                                                    class="ht-product-action-tooltip"> افزودن به
+                                                                    علاقه مندی ها </span></a>
+                                                        @endif
+                                                    @else
+                                                        <a
+                                                            href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                class="sli sli-heart"></i><span
+                                                                class="ht-product-action-tooltip"> افزودن به
+                                                                علاقه مندی ها </span></a>
+
+                                                    @endauth
                                                 </li>
                                                 <li>
                                                     <a href="#"><i class="sli sli-refresh"></i><span
@@ -219,7 +242,8 @@
         </div>
     </div>
 
-    <div class="testimonial-area pt-80 pb-95 section-margin-1" style="background-image: 
+    <div class="testimonial-area pt-80 pb-95 section-margin-1"
+        style="background-image: 
     url({{ asset('images/home/bg-1.jpg') }});">
         <div class="container">
             <div class="row">
@@ -270,7 +294,7 @@
                 @foreach ($indexTopBotomBanners as $banner)
                     <div class="col-lg-6 col-md-6 text-right">
                         <div class="single-banner mb-30 scroll-zoom">
-                            <a href="{{ route('home.products.show' , ['product' => $product->slug] ) }}"><img
+                            <a href="{{ route('home.products.show', ['product' => $product->slug]) }}"><img
                                     src="{{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $banner->image) }}"
                                     alt="" /></a>
                             <div
@@ -367,12 +391,10 @@
                                         @endif
                                     </div>
                                     <div class="pro-details-rating-wrap">
-                                            <div
-                                             data-rating-stars="5"
-                                              data-rating-readonly="true"
-                                                data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
-                                            </div>
-                                        <span class="mx-3" >|</span>
+                                        <div data-rating-stars="5" data-rating-readonly="true"
+                                            data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
+                                        </div>
+                                        <span class="mx-3">|</span>
                                         <span> دیدگاه
                                             ({{ $product->approvedComments()->count() }})
                                         </span>
@@ -423,8 +445,21 @@
                                                 <a href="#">افزودن به سبد خرید</a>
                                             </div>
                                             <div class="pro-details-wishlist">
-                                                <a title="Add To Wishlist" href="#"><i
-                                                        class="sli sli-heart"></i></a>
+                                                    @auth
+                                                        @if ($product->checkUserWishlist(auth()->id()))
+                                                            <a href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}"><i class="fas fa-heart"
+                                                                    style="color:red"></i></a>
+                                                        @else
+                                                            <a
+                                                                href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                    class="sli sli-heart"></i></a>
+                                                        @endif
+                                                    @else
+                                                        <a
+                                                            href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                class="sli sli-heart"></i></a>
+
+                                                    @endauth
                                             </div>
                                             <div class="pro-details-compare">
                                                 <a title="Add To Compare" href="#"><i
