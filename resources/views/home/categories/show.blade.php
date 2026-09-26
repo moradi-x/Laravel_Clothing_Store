@@ -449,7 +449,8 @@
                                                     <a href="#">افزودن به سبد خرید</a>
                                                 </div>
                                                 <div class="pro-details-wishlist">
-                                                    @auth @if ($product->checkUserWishlist(auth()->id()))
+                                                    @auth
+                                                     @if ($product->checkUserWishlist(auth()->id()))
                                                         <a
                                                             href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}">
                                                             <i class="fas fa-heart" style="color:red">
