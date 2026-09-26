@@ -13,6 +13,7 @@ use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
+use App\Http\Controllers\Home\UserProfileController;
 use App\Models\User;
 use App\Notifications\OTPSms;
 use Illuminate\Support\Env;
@@ -78,10 +79,12 @@ Route::post('check-otp', [AuthControllser::class, 'checkOtp']) ;
 Route::post('resend-otp', [AuthControllser::class, 'resendOtp']) ; 
 
 
-Route::get('/test', function () {
-    
-
-    $user = User::find(1);
-    $user->notify(new OTPSms(11228));
+Route::prefix('/profile')->name('home.')->group(function () {
+  Route::get('/', [UserProfileController::class, 'index'])->name('user_profile.index');
 
 });
+Route::get('/test', function () {
+    $user = User::find(1);
+    $user->notify(new OTPSms(11228));
+});
+

@@ -90,7 +90,7 @@
                                 data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                             </div>
                             <span class="mx-3">|</span>
-                            <span>  دیدگاه
+                            <span> دیدگاه
                                 ({{ $product->approvedComments()->count() }})
                             </span>
                         </div>
@@ -242,34 +242,30 @@
                             <div id="des-details2" class="tab-pane {{ count($errors) > 0 ? 'active' : '' }}">
 
                                 <div class="review-wrapper">
-                                    <div class="single-review">
-                                        @forelse ( $product->approvedComments() as $comments)
-                                            
-                                        @empty
-                                            
-                                        @endforelse
-                                        <div class="review-img">
-                                            <img src="assets/img/product-details/client-1.jpg" alt="">
-                                        </div>
-                                        <div class="review-content text-right">
-                                            <p class="text-right">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                                استفاده از طراحان گرافیک است.
-                                            </p>
-                                            <div class="review-top-wrap">
-                                                <div class="review-name">
-                                                    <h4> علی شیخ </h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
+                                    @foreach ($product->approvedComments as $comment)
+                                        <div class="single-review">
+                                            <div class="review-img">
+                                                <img src="{{ $comment->user->avatar == null ? asset('/images/home/user.png') : $comment->user->avatar }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="review-content text-right w-100 ">
+                                                <p class="text-right">
+                                                    {{ $comment->text }}
+                                                </p>
+                                                <div class="review-top-wrap">
+                                                    <div class="review-name">
+                                                        <h4> {{ $comment->user->name == null ? 'کاربر' : $comment->user->name }}
+                                                        </h4>
+                                                    </div>
+                                                    <div data-rating-stars="5"
+                                                     data-rating-readonly="true"
+                                                    data-rating-value="{{ ceil($comment->user->rates
+                                                    ->where('product_id', $product->id)->avg('rate')) }}">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="ratting-form-wrapper text-right">
