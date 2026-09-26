@@ -66,6 +66,8 @@ Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
 Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 
+Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+
 // احراز هویت معمولی
 // Route::get('/test', function () {
 //     auth()->logout();
@@ -80,7 +82,8 @@ Route::post('resend-otp', [AuthControllser::class, 'resendOtp']) ;
 
 
 Route::prefix('/profile')->name('home.')->group(function () {
-  Route::get('/', [UserProfileController::class, 'index'])->name('user_profile.index');
+  Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
+  Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
 
 });
 Route::get('/test', function () {

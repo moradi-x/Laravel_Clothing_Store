@@ -1,6 +1,6 @@
   <div class="myaccount-tab-menu nav" role="tablist">
 
-      <a href="#profile" class="active" data-toggle="tab">
+      <a href="{{ route('home.users_profile.index') }}" class="{{ request()->is('profile') ? 'active' : '' }}" >
           <i class="sli sli-user ml-1"></i>
           پروفایل
       </a>
@@ -20,7 +20,7 @@
           لیست علاقه مندی ها
       </a>
 
-      <a href="#comments" data-toggle="tab">
+      <a href="{{ route('home.comments.users_profile.index') }}"  class="{{ request()->is('profile/comments') ? 'active' : '' }}"  >
           <i class="sli sli-bubble ml-1"></i>
           نظرات
       </a>

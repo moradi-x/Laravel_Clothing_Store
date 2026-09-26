@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Validator;
 class CommentController extends Controller
 {
 
-    public function index()
+    public function usersProfileIndex()
     {
-        //
+        //  نمایش کامنت های خود یزور در پروفایلش
+        $comments = Comment::where('user_id' , auth()->id())->where('approved', 1)->get();
+       return view('home.users_profile.comments' , compact('comments'));
     }
 
 
