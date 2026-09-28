@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthControllser;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
+use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\UserProfileController;
@@ -23,12 +24,12 @@ use Illuminate\Support\Facades\Route;
 
 use Ipe\Sdk\Facades\SmsIr;
 
-
+//   داشبرد
 Route::get('/admin-panel/management/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
-
+// ادمین 
 Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
     Route::resource('brands', BrandController::class);
     Route::resource('attributes', AttributeController::class);
@@ -63,6 +64,7 @@ Route::prefix('/admin-panel/management')->name('admin.')->group(function () {
         ->name('products.category.update');
 });
 
+// صفحه اصلی و فروشگاه و سینگل محصول و فرستادن کامنت 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
@@ -72,6 +74,11 @@ Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->nam
 Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
 Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
 
+// مقایسه محصول 
+Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
+Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
+ 
+
 // احراز هویت معمولی
 // Route::get('/test', function () {
 //     auth()->logout();
@@ -79,18 +86,20 @@ Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remov
 // احراز هویت با اکانت گوگل outh
 // Route::get('login/{provider}', [AuthControllser::class, 'redirectToProvider'])->name('provider.login');
 // Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']); 
+
 // احراز هویت با otp سامانه پیامکی
 Route::any('login', [AuthControllser::class, 'login'])->name('login') ; 
 Route::post('check-otp', [AuthControllser::class, 'checkOtp']) ; 
 Route::post('resend-otp', [AuthControllser::class, 'resendOtp']) ; 
 
-
+// پروفابل کاربر 
 Route::prefix('/profile')->name('home.')->group(function () {
   Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
   Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
   Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
-
 });
+
+
 Route::get('/test', function () {
     $user = User::find(1);
     $user->notify(new OTPSms(11228));

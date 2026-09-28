@@ -181,7 +181,7 @@
                                                     @endauth
                                                 </li>
                                                 <li>
-                                                    <a href="#"><i class="sli sli-refresh"></i><span
+                                                    <a href="{{ route('home.compare.add' , ['product' => $product ] ) }}"><i class="sli sli-refresh"></i><span
                                                             class="ht-product-action-tooltip"> مقایسه
                                                         </span></a>
                                                 </li>
