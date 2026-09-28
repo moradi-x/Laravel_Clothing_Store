@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthControllser;
+use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\CompareController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Home\WishlistController;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Notifications\OTPSms;
+use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 
@@ -79,6 +81,10 @@ Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.
 Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
  Route::get('/remove-to-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
 
+// سبد خرید
+Route::post('/add-to-cart/', [CartController::class, 'add'])->name('home.cart.add');
+
+
 // احراز هویت معمولی
 // Route::get('/test', function () {
 //     auth()->logout();
@@ -105,6 +111,11 @@ Route::prefix('/profile')->name('home.')->group(function () {
 //     $user->notify(new OTPSms(11228));
 // });
 
+// Route::get('/test', function () {
+//     dd(session()->get('compareProduct')) ;
+// });
+
+
 Route::get('/test', function () {
-    dd(session()->get('compareProduct')) ;
+    dd(CartFacade::getContent()) ;
 });

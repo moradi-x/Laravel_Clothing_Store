@@ -413,6 +413,8 @@
                                             @endforeach
                                         </ul>
                                     </div>
+                                    <form action="{{ route('home.cart.add') }}"  method="POST">
+                                        @csrf 
                                     @if ($product->quantity_check)
                                         @php
                                             if ($product->sale_check) {
@@ -425,7 +427,7 @@
                                         <div class="pro-details-size-color text-right">
                                             <div class="pro-details-size w-50 ">
                                                 <span>{{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}</span>
-                                                <select class="form-control variation-select  ">
+                                                <select name="variation" class="form-control variation-select  ">
                                                     @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
                                                         <option
                                                             value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}"
@@ -440,9 +442,10 @@
                                             <div class="cart-plus-minus">
                                                 <input class="cart-plus-minus-box quantity-input " type="text"
                                                     name="qtybutton" value="1" data-max = "5" />
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}" >
                                             </div>
                                             <div class="pro-details-cart">
-                                                <a href="#">افزودن به سبد خرید</a>
+                                                <button type="submit">افزودن به سبد خرید</button>
                                             </div>
                                             <div class="pro-details-wishlist">
                                                     @auth
@@ -471,7 +474,7 @@
                                             <p class=" text-white">ناموجود</p>
                                         </div>
                                     @endif
-
+</form>
                                     <div class="pro-details-meta">
                                         <span>دسته بندی :</span>
                                         <ul>

@@ -9,6 +9,7 @@
         "php": "^8.2",
         "anetwork/validation": "^2.3",
         "cviebrock/eloquent-sluggable": "^12.0",
+        "darryldecode/cart": "^4.2",
         "ghasedaksms/ghasedaksms-laravel": "^1.0",
         "hekmatinasser/verta": "^9.0",
         "ipe/smsir-php": "^1.0",
