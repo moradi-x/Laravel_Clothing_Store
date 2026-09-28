@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Laravel Clothing Store @yield('title')</title>
+    <title> @yield('title')</title>
 
 
     <!-- Custom styles for this template-->

@@ -1,7 +1,7 @@
 @extends('home.layouts.home')
 
 @section('title')
-    - صفحه اصلی
+    صفحه اصلی
 @endsection
 {{-- @include('sweetalert::alert') --}}
 @section('script')
@@ -462,7 +462,7 @@
                                                     @endauth
                                             </div>
                                             <div class="pro-details-compare">
-                                                <a title="Add To Compare" href="#"><i
+                                                <a title="Add To Compare" href="{{ route('home.compare.add' , ['product' => $product ] ) }}"><i
                                                         class="sli sli-refresh"></i></a>
                                             </div>
                                         </div>

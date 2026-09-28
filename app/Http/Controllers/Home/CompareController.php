@@ -13,6 +13,7 @@ class CompareController extends Controller
     public function add(Product $product)
     {
         if (session()->has('compareProduct')) {
+
             if (in_array($product->id, session()->get('compareProduct'))) {
                 alert()->warning('دقت کنید   ',  'محصول مورد نظر به لیست علاقه مندی های شما اضافه شده است  ');
                 return redirect()->back();
@@ -30,11 +31,32 @@ class CompareController extends Controller
     public function index()
     {
         if (session()->has('compareProduct')) {
+
             $products = Product::findOrFail(session()->get('compareProduct'));
-            return view('home.compare.index' ,compact('products') );
+            return view('home.compare.index', compact('products'));
         }
 
         alert()->warning('دقت کنید   ',  'در ابتدا باید محصولی برای مقایسه اضافه کنید   ');
         return redirect()->back();
     }
-}
+
+    public function remove($productId)
+    {
+        if (session()->has('compareProduct')) {
+
+            foreach (session()->get('compareProduct') as $key => $item) {
+                if ($item == $productId) {
+                    session()->pull('compareProduct.' . $key);
+                }
+            }
+            if (session()->get('compareProduct' == [])) {
+                session()->forget('compareProduct');
+                return redirect()->route('home.index');
+            }
+
+            return redirect()->route('home.compare.index');
+        }
+        alert()->warning('دقت کنید   ',  'در ابتدا باید محصولی برای مقایسه اضافه کنید   ');
+        return redirect()->back();
+    }
+} 

@@ -1,7 +1,7 @@
 @extends('home.layouts.home')
 
 @section('title')
-    - صفحه فروشگاه
+     صفحه فروشگاه
 @endsection
 
 @section('script')

@@ -1,7 +1,7 @@
 @extends('home.layouts.home')
 
 @section('title')
-    - صفحه فروشگاه
+    صفحه فروشگاه
 @endsection
 
 @section('script')
@@ -278,7 +278,7 @@
                                                                 @endauth
                                                             </li>
                                                             <li>
-                                                                <a href="#"><i class="sli sli-refresh"></i><span
+                                                                <a href="{{ route('home.compare.add' , ['product' => $product ] ) }}"><i class="sli sli-refresh"></i><span
                                                                         class="ht-product-action-tooltip"> مقایسه
                                                                     </span></a>
                                                             </li>
@@ -473,7 +473,7 @@
                                                     @endauth
                                                 </div>
                                                 <div class="pro-details-compare">
-                                                    <a title="Add To Compare" href="#"><i
+                                                    <a title="Add To Compare" href="{{ route('home.compare.add' , ['product' => $product ] ) }}"><i
                                                             class="sli sli-refresh"></i></a>
                                                 </div>
                                             </div>

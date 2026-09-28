@@ -1,11 +1,7 @@
 @extends('home.layouts.home')
 
 @section('title')
-    - صفحه مقایسه
-@endsection
-
-@section('script')
-    <script></script>
+    صفحه مقایسه
 @endsection
 
 @section('content')
@@ -37,7 +33,7 @@
                                         @foreach ($products as $product)
                                             <td class="product-image-title">
                                                 <a href="single-product.html" class="image">
-                                                    <img class="img-fluid"
+                                                    <img class="img-fluid" width="200"
                                                         src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }} "
                                                         alt="Compare Product">
                                                 </a>
@@ -62,41 +58,47 @@
                                     <tr>
                                         <td class="first-column"> ویژگی متغییر </td>
                                         @foreach ($products as $product)
-                                            <ul class=" text-right">
-                                                <li>
-                                                    {{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}
-                                                    :
-                                                    @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
-                                                        <span>
-                                                            {{ $variation->value }} {{ $loop->last ? '' : ',' }}
-                                                        </span>
-                                                    @endforeach
+                                            <td>
+                                                <ul class=" text-right">
+                                                    <li>
+                                                        {{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}
+                                                        :
+                                                        @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
+                                                            <span>
+                                                                {{ $variation->value }} {{ $loop->last ? '' : ',' }}
+                                                            </span>
+                                                        @endforeach
 
-                                                </li>
-                                            </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
                                         @endforeach
                                     </tr>
                                     <tr>
                                         <td class="first-column"> ویژگی </td>
                                         @foreach ($products as $product)
-                                            <ul class=" text-right">
-                                                @foreach ($product->attributes()->with('attribute')->get() as $attribute)
-                                                    <li> -
-                                                        {{ $attribute->attribute->name }}
-                                                        :
-                                                        {{ $attribute->value }}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+                                            <td>
+                                                <ul class=" text-right">
+                                                    @foreach ($product->attributes()->with('attribute')->get() as $attribute)
+                                                        <li> -
+                                                            {{ $attribute->attribute->name }}
+                                                            :
+                                                            {{ $attribute->value }}
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                         @endforeach
                                     </tr>
 
                                     <tr>
                                         <td class="first-column"> امتیاز </td>
                                         @foreach ($products as $product)
-                                            <div data-rating-stars="5" data-rating-readonly="true"
-                                                data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
-                                            </div>
+                                            <td>
+                                                <div data-rating-stars="5" data-rating-readonly="true"
+                                                    data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
+                                                </div>
+                                            </td>
                                         @endforeach
                                     </tr>
                                     <tr>
@@ -104,7 +106,8 @@
                                         <td class="first-column"> حذف </td>
                                         @foreach ($products as $product)
                                             <td class="pro-remove">
-                                                <a href="#"><i class="sli sli-trash"></i></a>
+                                                <a href="{{ route('home.compare.remove', ['product' => $product->id]) }}"><i
+                                                        class="sli sli-trash"></i></a>
                                             </td>
                                         @endforeach
 

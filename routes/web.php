@@ -75,9 +75,9 @@ Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->na
 Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
 
 // مقایسه محصول 
-Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
 Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
- 
+Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
+ Route::get('/remove-to-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
 
 // احراز هویت معمولی
 // Route::get('/test', function () {
@@ -100,8 +100,11 @@ Route::prefix('/profile')->name('home.')->group(function () {
 });
 
 
-Route::get('/test', function () {
-    $user = User::find(1);
-    $user->notify(new OTPSms(11228));
-});
+// Route::get('/test', function () {
+//     $user = User::find(1);
+//     $user->notify(new OTPSms(11228));
+// });
 
+Route::get('/test', function () {
+    dd(session()->get('compareProduct')) ;
+});
