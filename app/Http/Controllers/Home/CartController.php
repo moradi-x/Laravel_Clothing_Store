@@ -31,17 +31,21 @@ class CartController extends Controller
 
         $rowId = $product->id . '-' .  $productVariation->id;
 
-        Cart::add(array(
-            'id' => $rowId,
-            'name' => $product->name,
-            'price' => $productVariation->is_sale ? $productVariation->sale_price : $productVariation->price,
-            'quantity' => $request->qtybutton,
-            'attributes' => $productVariation->toArray(),
-            'associatedModel' => $product
-        ));
-
-         alert()->success('دقت کنید   ',  ' محصول مورد نظر شما به سبد خرید اضافه شد  ');
+        if (Cart::get($rowId) == null ) {
+            Cart::add(array(
+                'id' => $rowId,
+                'name' => $product->name,
+                'price' => $productVariation->is_sale ? $productVariation->sale_price : $productVariation->price,
+                'quantity' => $request->qtybutton,
+                'attributes' => $productVariation->toArray(),
+                'associatedModel' => $product
+            ));
+        } else {
+            alert()->warning('دقت کنید   ',  ' محصول مورد نظر شما به سبد خرید اضافه شده است  ');
             return redirect()->back();
+        }
+        alert()->success('با تشکر ',  ' محصول مورد نظر شما به سبد خرید اضافه شد  ');
+        return redirect()->back();
 
         // dd($request->all());
     }

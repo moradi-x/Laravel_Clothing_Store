@@ -1,3 +1,6 @@
+  @php
+      use Darryldecode\Cart\Facades\CartFacade;
+  @endphp
   <header class="header-area sticky-bar">
       <div class="main-header-wrap">
           <div class="container">
@@ -64,14 +67,19 @@
                               <button class="icon-cart-active">
                                   <span class="icon-cart">
                                       <i class="sli sli-bag"></i>
-                                      <span class="count-style">02</span>
+                                      @if (! CartFacade::isEmpty())
+                                          <span class="count-style">{{ CartFacade::getContent()->count() }}</span>
+                                      @endif
                                   </span>
 
 
-                                  <span class="cart-price">
-                                      500,000
-                                  </span>
-                                  <span>تومان</span>
+                                    @if (! CartFacade::isEmpty())
+                                    <span class="cart-price">
+                                        {{number_format( CartFacade::getTotal() )}}
+                                    </span>
+                                    <span>تومان</span>
+                                      @endif
+
                               </button>
                               <div class="shopping-cart-content">
                                   <div class="shopping-cart-top">
@@ -86,8 +94,7 @@
                                           </div>
 
                                           <div class="shopping-cart-img">
-                                              <a href="#"><img alt=""
-                                                      src="#" /></a>
+                                              <a href="#"><img alt="" src="#" /></a>
                                               <div class="item-close">
                                                   <a href="#"><i class="sli sli-close"></i></a>
                                               </div>
@@ -99,8 +106,7 @@
                                               <span>1 x 9,000</span>
                                           </div>
                                           <div class="shopping-cart-img">
-                                              <a href="#"><img alt=""
-                                                      src="#" /></a>
+                                              <a href="#"><img alt="" src="#" /></a>
                                               <div class="item-close">
                                                   <a href="#"><i class="sli sli-close"></i></a>
                                               </div>
@@ -210,8 +216,7 @@
                                           </div>
 
                                           <div class="shopping-cart-img">
-                                              <a href="#"><img alt=""
-                                                      src="#" /></a>
+                                              <a href="#"><img alt="" src="#" /></a>
                                               <div class="item-close">
                                                   <a href="#"><i class="sli sli-close"></i></a>
                                               </div>
@@ -223,8 +228,7 @@
                                               <span>1 x 9,000</span>
                                           </div>
                                           <div class="shopping-cart-img">
-                                              <a href="#"><img alt=""
-                                                      src="#" /></a>
+                                              <a href="#"><img alt="" src="#" /></a>
                                               <div class="item-close">
                                                   <a href="#"><i class="sli sli-close"></i></a>
                                               </div>
