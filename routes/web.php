@@ -117,5 +117,6 @@ Route::prefix('/profile')->name('home.')->group(function () {
 
 
 Route::get('/test', function () {
+    // CartFacade::clear();
     dd(CartFacade::getContent()) ;
 });
