@@ -39,7 +39,9 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
 
-                        <form action="#">
+                        <form action="{{ route('home.cart.update') }}" method="POST" >
+                            @method('PUT')
+                            @csrf
                             <div class="table-content table-responsive cart-table-content">
                                 <table>
                                     <thead>
@@ -89,7 +91,7 @@
                                                 </td>
                                                 <td class="product-quantity">
                                                     <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                        <input class="cart-plus-minus-box" type="text" name="qtybutton[{{ $item->id }}]"
                                                             value="{{ $item->quantity }}"
                                                             data-max="{{ $item->attributes->quantity }} ">
                                                     </div>
@@ -114,7 +116,7 @@
                                             <a href="{{ route('home.index') }}"> ادامه خرید </a>
                                         </div>
                                         <div class="cart-clear">
-                                            <button> به روز رسانی سبد خرید </button>
+                                            <button  type="submit" > به روز رسانی سبد خرید </button>
                                             <a href="#"> پاک کردن سبد خرید </a>
                                         </div>
                                     </div>
@@ -147,25 +149,41 @@
                                     <h5>
                                         مبلغ سفارش :
                                         <span>
-                                            {{ number_format(CartFacade::getTotal() + cartTotalSaleAmount() ) }}
+                                            {{ number_format(CartFacade::getTotal() + cartTotalSaleAmount()) }}
 
                                             تومان
                                         </span>
                                     </h5>
+                                    @if (cartTotalSaleAmount() > 0)
+                                        <hr>
+                                        <h5>
+                                            مبلغ تخفیف کالا ها :
+                                            <span style=" color: red;">
+                                                {{ number_format(cartTotalSaleAmount()) }}
+                                                تومان
+                                            </span>
+                                        </h5>
+                                    @endif
                                     <div class="total-shipping">
                                         <h5>
                                             هزینه ارسال :
-                                            <span>
-                                                30000
-                                                تومان
-                                            </span>
+                                            @if (cartTotalDeliveryAmount() == 0)
+                                                <span style="color: red">
+                                                    رایگان
+                                                </span>
+                                            @else
+                                                <span>
+                                                    {{ number_format(cartTotalDeliveryAmount()) }}
+                                                    تومان
+                                                </span>
+                                            @endif
                                         </h5>
 
                                     </div>
                                     <h4 class="grand-totall-title">
                                         جمع کل:
                                         <span>
-                                            70000
+                                            {{ number_format(CartFacade::getTotal() + cartTotalDeliveryAmount()) }}
                                             تومان
                                         </span>
                                     </h4>

@@ -31,7 +31,7 @@ class CartController extends Controller
 
         $rowId = $product->id . '-' .  $productVariation->id;
 
-        if (Cart::get($rowId) == null ) {
+        if (Cart::get($rowId) == null) {
             Cart::add(array(
                 'id' => $rowId,
                 'name' => $product->name,
@@ -50,7 +50,34 @@ class CartController extends Controller
         // dd($request->all());
     }
 
-    public function index(){
-        return view('home.cart.index') ;
+    public function index()
+    {
+        return view('home.cart.index');
+    }
+
+    public function update(Request $request)
+    {
+
+        $request->validate([
+            'qtybutton' => ['required'],
+        ]);
+
+        foreach ($request->qtybutton as $rowId => $quantity) {
+
+            $item = Cart::get($rowId);
+
+            if ($quantity > $item->attributes->quantity) {
+
+                alert()->error('دقت کنید   ',  ' تعداد وارد شده از محصول درست نمی باشد  ');
+                return redirect()->back();
+            }
+
+            Cart::update($rowId, array(
+                'quantity' => $quantity
+            ));
+        }
+
+        alert()->success('با تشکر ',  ' محصول مورد نظر شما به سبد خرید اضافه شد  ');
+        return redirect()->back();
     }
 }
