@@ -1,5 +1,6 @@
   @php
       use Darryldecode\Cart\Facades\CartFacade;
+
   @endphp
   <header class="header-area sticky-bar">
       <div class="main-header-wrap">
@@ -67,72 +68,87 @@
                               <button class="icon-cart-active">
                                   <span class="icon-cart">
                                       <i class="sli sli-bag"></i>
-                                      @if (! CartFacade::isEmpty())
+                                      @if (!CartFacade::isEmpty())
                                           <span class="count-style">{{ CartFacade::getContent()->count() }}</span>
                                       @endif
                                   </span>
 
 
-                                    @if (! CartFacade::isEmpty())
-                                    <span class="cart-price">
-                                        {{number_format( CartFacade::getTotal() )}}
-                                    </span>
-                                    <span>تومان</span>
-                                      @endif
+                                  @if (!CartFacade::isEmpty())
+                                      <span class="cart-price">
+                                          {{ number_format(CartFacade::getTotal()) }}
+                                      </span>
+                                      <span>تومان</span>
+                                  @endif
 
                               </button>
-                              <div class="shopping-cart-content">
-                                  <div class="shopping-cart-top">
-                                      <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
-                                      <h4>سبد خرید</h4>
-                                  </div>
-                                  <ul>
-                                      <li class="single-shopping-cart">
-                                          <div class="shopping-cart-title">
-                                              <h4><a href="#"> لورم ایپسوم </a></h4>
-                                              <span>1 x 90.00</span>
-                                          </div>
+                              @if (!CartFacade::isEmpty())
 
-                                          <div class="shopping-cart-img">
-                                              <a href="#"><img alt="" src="#" /></a>
-                                              <div class="item-close">
-                                                  <a href="#"><i class="sli sli-close"></i></a>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      <li class="single-shopping-cart">
-                                          <div class="shopping-cart-title">
-                                              <h4><a href="#"> لورم ایپسوم </a></h4>
-                                              <span>1 x 9,000</span>
-                                          </div>
-                                          <div class="shopping-cart-img">
-                                              <a href="#"><img alt="" src="#" /></a>
-                                              <div class="item-close">
-                                                  <a href="#"><i class="sli sli-close"></i></a>
-                                              </div>
-                                          </div>
-                                      </li>
-                                  </ul>
-                                  <div class="shopping-cart-bottom">
-                                      <div class="shopping-cart-total d-flex justify-content-between align-items-center"
-                                          style="direction: rtl;">
-                                          <h4>
-                                              جمع کل :
-                                          </h4>
-                                          <span class="shop-total">
-                                              25,000 تومان
-                                          </span>
+                                  <div class="shopping-cart-content">
+                                      <div class="shopping-cart-top">
+                                          <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
+                                          <h4>سبد خرید</h4>
                                       </div>
+                                      <ul>
+                                          @foreach (CartFacade::getContent() as $item)
+                                              <li class="single-shopping-cart">
+                                                  <div class="shopping-cart-title">
+                                                      <h4><a href="#"> {{ $item->name }} </a></h4>
+                                                      <span>{{ $item->quantity }} x
+                                                          {{ number_format($item->price) }}</span>
+                                                      <div style=" direction: rtl;" >  
+                                                          {{ \App\Models\Attribute::find($item->attributes->attribute_id)->name }}
+                                                          :
+                                                          {{ $item->attributes->value }}
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="shopping-cart-img">
+                                                      <a
+                                                          href="{{ route('home.products.show', ['product' => $item->associatedModel->slug]) }}"><img
+                                                              alt=""
+                                                              src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $item->associatedModel->primary_image) }}" /></a>
+                                                      <div class="item-close">
+                                                          <a href="#"><i class="sli sli-close"></i></a>
+                                                      </div>
+                                                  </div>
+                                              </li>
+                                          @endforeach
+                                      </ul>
+                                      <div class="shopping-cart-bottom">
+                                          <div class="shopping-cart-total d-flex justify-content-between align-items-center"
+                                              style="direction: rtl;">
+                                              <h4>
+                                                  جمع کل :
+                                              </h4>
+                                              <span class="shop-total">
+                                                  25,000 تومان
+                                              </span>
+                                          </div>
+                                          <div class="shopping-cart-btn btn-hover text-center">
+                                              <a class="default-btn" href="checkout.html">
+                                                  ثبت سفارش
+                                              </a>
+                                              <a class="default-btn" href="cart-page.html">
+                                                  سبد خرید
+                                              </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              @else
+                                  <div class="shopping-cart-content">
+                                      <div class="shopping-cart-top">
+                                          <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
+                                          <h4>سبد خرید</h4>
+                                      </div>
+                                      <p>سبد خرید شما خالی هست </p>
                                       <div class="shopping-cart-btn btn-hover text-center">
-                                          <a class="default-btn" href="checkout.html">
-                                              ثبت سفارش
-                                          </a>
-                                          <a class="default-btn" href="cart-page.html">
-                                              سبد خرید
+                                          <a class="default-btn" href="{{ route('home.index') }}">
+                                              فروشگاه
                                           </a>
                                       </div>
                                   </div>
-                              </div>
+                              @endif
                           </div>
 
                           <div class="setting-wrap">
