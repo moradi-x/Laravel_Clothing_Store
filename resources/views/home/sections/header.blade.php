@@ -1,6 +1,5 @@
   @php
-      use Darryldecode\Cart\Facades\CartFacade;
-
+    use Darryldecode\Cart\Facades\CartFacade;
   @endphp
   <header class="header-area sticky-bar">
       <div class="main-header-wrap">
@@ -76,8 +75,8 @@
 
                                   @if (!CartFacade::isEmpty())
                                       <span class="cart-price">
-                                          {{ number_format(CartFacade::getTotal()) }}
-                                      </span>
+
+                                    </span>
                                       <span>تومان</span>
                                   @endif
 
@@ -96,10 +95,19 @@
                                                       <h4><a href="#"> {{ $item->name }} </a></h4>
                                                       <span>{{ $item->quantity }} x
                                                           {{ number_format($item->price) }}</span>
-                                                      <div style=" direction: rtl;" >  
-                                                          {{ \App\Models\Attribute::find($item->attributes->attribute_id)->name }}
-                                                          :
-                                                          {{ $item->attributes->value }}
+                                                      <div style=" direction: rtl;">
+                                                          <p class=" mb-0" style=" font-size: 12px;">
+                                                              {{ \App\Models\Attribute::find($item->attributes->attribute_id)->name }}
+                                                              :
+                                                              {{ $item->attributes->value }}
+                                                          </p>
+
+                                                          @if ($item->attributes->is_sale)
+                                                              <p style=" font-size: 12px ; color:red">
+                                                                  {{ $item->attributes->persent_sale }}%
+                                                                  تخفیف
+                                                              </p>
+                                                          @endif
                                                       </div>
                                                   </div>
 
@@ -122,14 +130,16 @@
                                                   جمع کل :
                                               </h4>
                                               <span class="shop-total">
-                                                  25,000 تومان
+                                                  {{ number_format(CartFacade::getTotal()) }}
+
+                                                  تومان
                                               </span>
                                           </div>
                                           <div class="shopping-cart-btn btn-hover text-center">
                                               <a class="default-btn" href="checkout.html">
                                                   ثبت سفارش
                                               </a>
-                                              <a class="default-btn" href="cart-page.html">
+                                              <a class="default-btn" href="{{ route('home.cart.index') }}">
                                                   سبد خرید
                                               </a>
                                           </div>
@@ -174,6 +184,7 @@
                   </div>
               </div>
           </div>
+
           <!-- main-search start -->
           <div class="main-search-active">
               <div class="sidebar-search-icon">

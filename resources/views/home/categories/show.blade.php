@@ -446,8 +446,10 @@
                                                         name="qtybutton" value="1" data-max = "5" />
                                                 </div>
                                                 <div class="pro-details-cart">
-                                                    <a href="#">افزودن به سبد خرید</a>
+                                                    <button type="submit">افزودن به سبد خرید</button>
                                                 </div>
+
+
                                                 <div class="pro-details-wishlist">
                                                     @auth
                                                         @if ($product->checkUserWishlist(auth()->id()))

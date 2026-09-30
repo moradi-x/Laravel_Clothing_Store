@@ -416,7 +416,6 @@
                                     </div>
                                     <form action="{{ route('home.cart.add') }}" method="POST">
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-
                                         @csrf
                                         @if ($product->quantity_check)
                                             @php

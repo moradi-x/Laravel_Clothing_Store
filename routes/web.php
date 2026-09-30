@@ -83,6 +83,7 @@ Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name
 
 // سبد خرید
 Route::post('/add-to-cart/', [CartController::class, 'add'])->name('home.cart.add');
+Route::get('/cart/', [CartController::class, 'index'])->name('home.cart.index');
 
 
 // احراز هویت معمولی

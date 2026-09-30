@@ -49,4 +49,8 @@ class CartController extends Controller
 
         // dd($request->all());
     }
+
+    public function index(){
+        return view('home.cart.index') ;
+    }
 }
