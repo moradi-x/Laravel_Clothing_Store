@@ -79,15 +79,17 @@ Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remov
 // مقایسه محصول 
 Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
 Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
- Route::get('/remove-to-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
+ Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
 
 // سبد خرید
 Route::post('/add-to-cart/', [CartController::class, 'add'])->name('home.cart.add');
 Route::get('/cart/', [CartController::class, 'index'])->name('home.cart.index');
 Route::put('/cart/', [CartController::class, 'update'])->name('home.cart.update');
+Route::post('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
+Route::get('/clear-cart/', [CartController::class, 'clear'])->name('home.cart.clear');
 
 
-// احراز هویت معمولی
+// احراز هویت معمولی 
 // Route::get('/test', function () {
 //     auth()->logout();
 // });

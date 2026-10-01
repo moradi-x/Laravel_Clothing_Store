@@ -117,7 +117,7 @@
                                                               alt=""
                                                               src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $item->associatedModel->primary_image) }}" /></a>
                                                       <div class="item-close">
-                                                          <a href="#"><i class="sli sli-close"></i></a>
+                                                          <a href="{{ route('home.cart.remove' , ['rowId'  => $item->id ] ) }}"><i class="sli sli-close"></i></a>
                                                       </div>
                                                   </div>
                                               </li>

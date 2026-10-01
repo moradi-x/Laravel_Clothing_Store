@@ -73,7 +73,10 @@ class CartController extends Controller
             }
 
             Cart::update($rowId, array(
-                'quantity' => $quantity
+                'quantity' => array(
+                    'relative' => false,
+                    'value' => $quantity
+                ),
             ));
         }
 
