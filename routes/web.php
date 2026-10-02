@@ -85,7 +85,7 @@ Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name
 Route::post('/add-to-cart/', [CartController::class, 'add'])->name('home.cart.add');
 Route::get('/cart/', [CartController::class, 'index'])->name('home.cart.index');
 Route::put('/cart/', [CartController::class, 'update'])->name('home.cart.update');
-Route::post('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
+Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
 Route::get('/clear-cart/', [CartController::class, 'clear'])->name('home.cart.clear');
 
 
