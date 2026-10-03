@@ -89,6 +89,7 @@ Route::get('/cart/', [CartController::class, 'index'])->name('home.cart.index');
 Route::put('/cart/', [CartController::class, 'update'])->name('home.cart.update');
 Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
 Route::get('/clear-cart/', [CartController::class, 'clear'])->name('home.cart.clear');
+Route::post('/check-coupon/', [CartController::class, 'chehkCoupon'])->name('home.coupons.check');
 
 
 // احراز هویت معمولی 

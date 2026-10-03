@@ -52,9 +52,9 @@ class CouponController extends Controller
         return redirect()->route('admin.coupons.index');
     }
 
-    public function show(string $id)
+    public function show(Coupon $coupon)
     {
-        //
+        return view('admin.coupons.show', compact('coupon'));
     }
 
     public function edit(Coupon $coupon)

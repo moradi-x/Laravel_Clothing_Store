@@ -89,7 +89,7 @@ class CartController extends Controller
     {
 
         Cart::remove($rowId);
-        
+
         alert()->success('با تشکر ',  ' محصول مورد نظر شما از سبد خرید حذف شد  ');
         return redirect()->back();
     }
@@ -98,9 +98,28 @@ class CartController extends Controller
     {
 
         Cart::clear();
-        
+
         alert()->warning('با تشکر ',  'سبد خرید شما پاک شد  ');
         return redirect()->back();
     }
 
+    public function chehkCoupon(Request $request)
+    {
+        $request->validate([
+            'code' => ['required'],
+        ]);
+
+        if (! auth()->check()) {
+            alert()->error('دقت کنید',  'برای استفاده از کد تخفیف نیاز هست ابتدا وارد سایت شوید');
+            return redirect()->back();
+        }
+
+        $result =  checkCoupone($request->code);
+        if (array_key_exists('error', $result)) {
+            alert()->error('دقت کنید',  $result['error']);
+        } else {
+            alert()->success(' با تشکر ',  $result['success']);
+        }
+        return redirect()->back();
+    }
 }

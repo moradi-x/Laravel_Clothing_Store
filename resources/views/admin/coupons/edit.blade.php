@@ -72,7 +72,7 @@
                             </div>
 
                             <input type="text" class="form-control" data-jdp id="expirInput" name="expired_at"
-                                value="{{ verta($coupon->expired_at)->format('Y/m/d') }}">
+                                value="{{ verta($coupon->expired_at)->format('Y/m/d H:i:s') }}">
 
                         </div>
 
@@ -81,9 +81,8 @@
                 <button class="btn btn-outline-primary mt-5" type="submit">
                     ویرایش
                 </button>
-                <a href="#" class="btn btn-dark mt-5 mr-3" href="{{ route('admin.coupons.index') }}">
-                    بازگشت
-                </a>
+                <a href="{{ route('admin.coupons.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
+
             </form>
         </div>
     </div>
