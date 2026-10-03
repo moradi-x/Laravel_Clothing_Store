@@ -117,6 +117,10 @@ Route::prefix('/profile')->name('home.')->group(function () {
   Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
 });
 
+// روت گرفتن استان و شهر در قسمت پروفایل
+Route::get('/get-province-cities', [AddressController::class, 'getProvinceCitiesList'])
+    ->name('getProvinceCitiesList');
+
 
 // Route::get('/test', function () {
 //     $user = User::find(1);

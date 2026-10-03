@@ -25,7 +25,7 @@ return new class extends Migration
             $table->bigInteger('city_id');
 
             $table->string('longitude')->nullable();
-            $table->string('lantitude')->nullable();
+            $table->string('latitude')->nullable();
             
 
 

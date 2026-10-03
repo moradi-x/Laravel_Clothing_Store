@@ -5,7 +5,36 @@
 @endsection
 
 @section('script')
-    <script></script>
+    <script>
+        const provinceSelect = document.getElementById('province-select-create');
+        const citySelect = document.getElementById('city-select-create');
+        const oldCityId = "{{ old('city_id') }}";
+
+        function loadCities(provinceId, selectedId = null) {
+            citySelect.innerHTML = '<option value="">انتخاب شهر</option>';
+            if (!provinceId) return;
+
+            fetch(`{{ route('getProvinceCitiesList') }}?province_id=${provinceId}`, {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(cities => {
+                    cities.forEach(city => {
+                        const opt = new Option(city.name, city.id);
+                        if (selectedId && selectedId == city.id) opt.selected = true;
+                        citySelect.add(opt);
+                    });
+                });
+        }
+
+        // console.log('script loaded');
+        provinceSelect.addEventListener('change', () => loadCities(provinceSelect.value));
+
+        // اگر فرم با خطا برگشت، شهر قبلی دوباره انتخاب شود
+        if (provinceSelect.value) loadCities(provinceSelect.value, oldCityId);
+    </script>
 @endsection
 
 @section('content')
@@ -80,12 +109,12 @@
                                                             <label>
                                                                 عنوان
                                                             </label>
-                                                            <input type="text"  name="title">
-                                                             @error('title')
-                                                            <div class="input-error-validation">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
+                                                            <input type="text" name="title">
+                                                            @error('title')
+                                                                <div class="input-error-validation">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                         <div class="tax-select col-lg-6 col-md-6">
                                                             <label>
@@ -150,7 +179,8 @@
 
                                         <button class="collapse-address-create mt-3" type="submit"> ایجاد آدرس
                                             جدید </button>
-                                        <div class="collapse-address-create-content" style="{{ count($errors->addressStore) > 0  ? 'display:block' : '' }}" >
+                                        <div class="collapse-address-create-content"
+                                            style="{{ count($errors->addressStore) > 0 ? 'display:block' : '' }}">
 
                                             <form action="{{ route('home.addresses.store') }}" method="post">
                                                 @csrf
@@ -160,8 +190,8 @@
                                                         <label>
                                                             عنوان
                                                         </label>
-                                                        <input type="text"  name="title"  value="{{ old('title') }}" >
-                                                        @error('title' , 'addressStore' )
+                                                        <input type="text" name="title" value="{{ old('title') }}">
+                                                        @error('title', 'addressStore')
                                                             <div class="input-error-validation">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
@@ -171,8 +201,9 @@
                                                         <label>
                                                             شماره تماس
                                                         </label>
-                                                        <input type="text" name="cellphone" value="{{ old('cellphone') }}" >
-                                                        @error('cellphone' , 'addressStore' )
+                                                        <input type="text" name="cellphone"
+                                                            value="{{ old('cellphone') }}">
+                                                        @error('cellphone', 'addressStore')
                                                             <div class="input-error-validation">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
@@ -182,10 +213,19 @@
                                                         <label>
                                                             استان
                                                         </label>
-                                                        <select class="email s-email s-wid" name="province_id" >
-                                                            <option>Bangladesh</option>
+
+                                                        <select class="email s-email s-wid" name="province_id"
+                                                            id="province-select-create">
+                                                            <option value="">انتخاب استان</option>
+                                                            @foreach ($provinces as $province)
+                                                                <option value="{{ $province->id }}"
+                                                                    {{ old('province_id') == $province->id ? 'selected' : '' }}>
+                                                                    {{ $province->name }}
+                                                                </option>
+                                                            @endforeach
                                                         </select>
-                                                         @error('province_id' , 'addressStore' )
+
+                                                        @error('province_id', 'addressStore')
                                                             <div class="input-error-validation">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
@@ -195,10 +235,11 @@
                                                         <label>
                                                             شهر
                                                         </label>
-                                                        <select class="email s-email s-wid" name="city_id" >
-                                                            <option>Bangladesh</option>
+                                                        <select class="email s-email s-wid" name="city_id"
+                                                            id="city-select-create">
+                                                            <option value="">انتخاب شهر</option>
                                                         </select>
-                                                        @error('city_id' , 'addressStore' )
+                                                        @error('city_id', 'addressStore')
                                                             <div class="input-error-validation">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
@@ -208,8 +249,9 @@
                                                         <label>
                                                             آدرس
                                                         </label>
-                                                        <input type="text" name="address" value="{{ old('cellphone') }}" >
-                                                        @error('address' , 'addressStore' )
+                                                        <input type="text" name="address"
+                                                            value="{{ old('cellphone') }}">
+                                                        @error('address', 'addressStore')
                                                             <div class="input-error-validation">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
@@ -219,8 +261,9 @@
                                                         <label>
                                                             کد پستی
                                                         </label>
-                                                        <input type="text"  name="postal_code" value="{{ old('postal_code') }}">
-                                                         @error('postal_code' , 'addressStore' )
+                                                        <input type="text" name="postal_code"
+                                                            value="{{ old('postal_code') }}">
+                                                        @error('postal_code', 'addressStore')
                                                             <div class="input-error-validation">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
