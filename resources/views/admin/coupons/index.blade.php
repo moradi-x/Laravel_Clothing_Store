@@ -26,6 +26,9 @@
                         <tr>
                             <th> # </th>
                             <th> نام </th>
+                            <th> کد </th>
+                            <th> نوع </th>
+                            <th> تاریخ انقضا </th>
                             <th> عملیات </th>
                         </tr>
                     </thead>
@@ -37,6 +40,15 @@
                                 </th>
                                 <th>
                                     {{ $coupon->name }}
+                                </th>
+                                <th>
+                                    {{ $coupon->code }}
+                                </th>
+                                <th>
+                                    {{ $coupon->type }}
+                                </th>
+                                <th>
+                                    {{ verta($coupon->expired_at) }}
                                 </th>
 
                                 <th>

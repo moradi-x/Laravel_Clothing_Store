@@ -10,4 +10,9 @@ class Coupon extends Model
     use HasFactory;
     protected $table = "coupons";
     protected $guarded = [];
+
+     public function getTypeAttribute($type){
+        return $type == 'amount' ? 'مبلغی' : 'درصدی ' ;
+    }
+
 }

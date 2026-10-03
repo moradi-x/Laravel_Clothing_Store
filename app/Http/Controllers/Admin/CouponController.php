@@ -12,8 +12,8 @@ class CouponController extends Controller
     public function index()
     {
 
-        $attributes = Coupon::oldest()->paginate(20);
-        return view('admin.attributes.index', compact('attributes'));
+        $coupons = Coupon::oldest()->paginate(20);
+        return view('admin.coupons.index', compact('coupons'));
     }
     public function create()
     {
@@ -47,8 +47,6 @@ class CouponController extends Controller
             )->formatGregorian('Y-m-d'),
         ]);
 
-
-
         alert()->success('کوپن مورد نظر ایجاد شد', 'با تشکر');
 
         return redirect()->route('admin.coupons.index');
@@ -59,15 +57,41 @@ class CouponController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit(Coupon $coupon)
     {
-        //
+        return view('admin.coupons.edit', compact('coupon'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Coupon $coupon)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'code' => ['required',  'unique:coupons,code,' . $coupon->id],
+            'type' => ['required'],
+            'amount' => ['required_if:type,amount'],
+            'percentage' => ['required_if:type,percentage'],
+            'max_percentage_amount' => ['required_if:type,percentage'],
+            'expired_at' => ['required'],
+        ]);
+
+        $coupon->update([
+            'name' => $request->name,
+            'code' => $request->code,
+            'type' => $request->type,
+            'amount' => $request->amount,
+            'percentage' => $request->percentage,
+            'max_percentage_amount' => $request->max_percentage_amount,
+            'expired_at' => Verta::parseFormat(
+                'Y/m/d H:i:s',
+                str_replace('-', '/', $request->expired_at)
+            )->formatGregorian('Y-m-d'),
+        ]);
+
+        alert()->success('کوپن مورد نظر ویرایش شد', 'با تشکر');
+
+        return redirect()->route('admin.coupons.index');
     }
+
 
     public function destroy(string $id)
     {
