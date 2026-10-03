@@ -12,7 +12,7 @@ class ProductVariation extends Model
     use HasFactory, SoftDeletes;
     protected $table = "product_variations";
     protected $guarded = [];
-    protected $appends = ['is_sale' , 'persent_sale'];
+    protected $appends = ['is_sale' , 'percent_sale'];
 
     public function getIsSaleAttribute()
     {
@@ -21,7 +21,7 @@ class ProductVariation extends Model
             $this->date_on_sale_to > Carbon::now()) ? true : false;
     }
 
-    public function getPersentSaleAttribute()
+    public function getPercentSaleAttribute()
     {
         return $this->is_sale ?
             round((($this->price - $this->sale_price) / $this->price) *   100)  : null;

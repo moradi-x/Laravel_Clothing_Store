@@ -84,7 +84,7 @@
 
                                                     @if ($item->attributes->is_sale)
                                                         <p style=" font-size: 12px ; color:red">
-                                                            {{ $item->attributes->persent_sale }}%
+                                                            {{ $item->attributes->percent_sale }}%
                                                             تخفیف
                                                         </p>
                                                     @endif

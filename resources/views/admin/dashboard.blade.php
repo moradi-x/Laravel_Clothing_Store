@@ -164,7 +164,7 @@
 @endsection
 
 @section('title')
-   - dashboard
+    dashboard
 @endsection
 {{-- @include('sweetalert::alert') --}}
 
