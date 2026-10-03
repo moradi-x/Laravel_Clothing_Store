@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string(column: 'title');
             $table->string(column: 'address');
-            // $table->string(column: 'cellphone');
+            $table->string(column: 'cellphone');
              $table->string(column: 'postal_code');
 
             $table->foreignId('user_id');

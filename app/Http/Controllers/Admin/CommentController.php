@@ -84,6 +84,6 @@ class CommentController extends Controller
 
          alert()->success('وضعیت کامنت مورد نظر تغییر کرد ', 'با تشکر');
 
-        return redirect()->route('admin.comments.index');
+        return redirect()->route('home.comments.index');
     }
 }

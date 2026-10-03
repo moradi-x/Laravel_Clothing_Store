@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthControllser;
+use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
@@ -110,6 +111,10 @@ Route::prefix('/profile')->name('home.')->group(function () {
   Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
   Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
   Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
+
+  // ادرس کاربر
+  Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+  Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
 });
 
 
