@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\City;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Province;
 use Carbon\Carbon;
 use Darryldecode\Cart\Facades\CartFacade;
 
@@ -64,4 +66,14 @@ function cartTotalAmount()
 
         return  CartFacade::getTotal() +  cartTotalDeliveryAmount();
     }
+}
+
+function province_name($provinceId)
+{
+   return Province::findOrFail($provinceId)->name ;
+}
+
+function city_name($provinceId)
+{
+   return City::findOrFail($provinceId)->name ;
 }

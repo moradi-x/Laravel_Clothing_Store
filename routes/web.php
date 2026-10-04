@@ -91,6 +91,7 @@ Route::put('/cart/', [CartController::class, 'update'])->name('home.cart.update'
 Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
 Route::get('/clear-cart/', [CartController::class, 'clear'])->name('home.cart.clear');
 Route::post('/check-coupon/', [CartController::class, 'chehkCoupon'])->name('home.coupons.check');
+Route::get('/checkout/', [CartController::class, 'checkout'])->name('home.arders.checkout');
 
 
 // احراز هویت معمولی 
@@ -115,6 +116,7 @@ Route::prefix('/profile')->name('home.')->group(function () {
   // ادرس کاربر
   Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
   Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
+  Route::put('/addresses/{addresses}', [AddressController::class, 'update'])->name('addresses.update');
 });
 
 // روت گرفتن استان و شهر در قسمت پروفایل

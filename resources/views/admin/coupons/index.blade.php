@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-    - index coupon
+ coupon
 @endsection
 @section('content')
     <!-- Content Row -->

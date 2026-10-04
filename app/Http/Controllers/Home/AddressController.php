@@ -7,14 +7,16 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AddressController extends Controller
 {
     public function index()
     {
         $provinces = Province::orderBy('name')->get();
+        $addresses = UserAddress::where('user_id', auth()->id())->get();
 
-        return view('home.users_profile.addresses',compact('provinces'));
+        return view('home.users_profile.addresses',compact('provinces' , 'addresses' ));
     }
 
     public function create()
@@ -40,7 +42,7 @@ class AddressController extends Controller
             'title' => $request->title,
             'cellphone' => $request->cellphone,
             'province_id' => $request->province_id,
-            'city_id' => $request->ticity_idtle,
+            'city_id' => $request->city_id,
             'address' => $request->address,
             'postal_code' => $request->postal_code,
         ]);
@@ -49,7 +51,7 @@ class AddressController extends Controller
 
         alert()->success('ادرس مورد نظر ایجاد شد ', 'با تشکر');
 
-        return redirect()->route('admin.addresses.index');
+        return redirect()->route('home.addresses.index');
     }
 
     public function getProvinceCitiesList(Request $request)
@@ -71,9 +73,39 @@ class AddressController extends Controller
         //
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, UserAddress $address )
     {
-        //
+
+        $validator = Validator::make($request->all(),[
+              'title' => ['required'],
+            'cellphone' => ['required', 'iran_mobile'],
+            'province_id' => ['required'],
+            'city_id' => ['required'],
+            'address' => ['required'],
+            'postal_code' => ['required', 'iran_postal_code'],
+        ]);
+
+        if($validator->fails()){
+            $validator->errors()->add('address_id', $address->id);
+            return redirect()->back()->withErrors($validator , 'addressUpdate' )->withInput();
+        }
+
+        
+        $address->update([
+            'title' => $request->title,
+            'cellphone' => $request->cellphone,
+            'province_id' => $request->province_id,
+            'city_id' => $request->city_id,
+            'address' => $request->address,
+            'postal_code' => $request->postal_code,
+        ]);
+
+
+
+        alert()->success('ادرس مورد نظر ویرایش  شد ', 'با تشکر');
+
+        return redirect()->route('home.addresses.index');
+
     }
 
     public function destroy(string $id)
