@@ -51,7 +51,7 @@ class AddressController extends Controller
 
         alert()->success('ادرس مورد نظر ایجاد شد ', 'با تشکر');
 
-        return redirect()->route('home.addresses.index');
+        return redirect()->back();
     }
 
     public function getProvinceCitiesList(Request $request)

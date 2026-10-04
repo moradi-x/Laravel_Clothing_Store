@@ -200,7 +200,7 @@
                                             تومان
                                         </span>
                                     </h4>
-                                    <a href="./checkout.html"> ادامه فرآیند خرید </a>
+                                    <a href="{{ route('home.arders.checkout') }}"> ادامه فرآیند خرید </a>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +215,7 @@
                     <i class="sli sli-basket"></i>
                     <h2 class="font-weight-bold my-4">سبد خرید خالی است.</h2>
                     <p class="mb-40">شما هیچ کالایی در سبد خرید خود ندارید.</p>
-                    <a href="shop.html"> ادامه خرید </a>
+                    <a href="{{ route('home.index') }}"> ادامه خرید </a>
                 </div>
             </div>
         </div>

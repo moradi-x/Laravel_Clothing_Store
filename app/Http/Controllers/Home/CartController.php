@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\Province;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 
 // use Darryldecode\Cart\Cart;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
+use Darryldecode\Cart\Facades\CartFacade;
 
 class CartController extends Controller
 {
@@ -123,7 +126,17 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function checkout(){
-        
+    public function checkout()
+    {
+
+        if (CartFacade::isEmpty()) {
+            alert()->warning(' دقت کنید   ', 'سبد خرید شما خالی میباشد ');
+            return redirect()->route('home.index');
+        }
+
+        $provinces = Province::orderBy('name')->get();
+        $addresses = UserAddress::where('user_id', auth()->id())->get();
+
+        return view('home.cart.checkout' , compact('provinces','addresses'));
     }
 }
