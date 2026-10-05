@@ -16,6 +16,7 @@ use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\PaymentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Home\WishlistController;
@@ -92,6 +93,8 @@ Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name
 Route::get('/clear-cart/', [CartController::class, 'clear'])->name('home.cart.clear');
 Route::post('/check-coupon/', [CartController::class, 'chehkCoupon'])->name('home.coupons.check');
 Route::get('/checkout/', [CartController::class, 'checkout'])->name('home.arders.checkout');
+
+Route::post('/payment/', [PaymentController::class, 'payment'])->name('home.payment');
 
 
 // احراز هویت معمولی 
