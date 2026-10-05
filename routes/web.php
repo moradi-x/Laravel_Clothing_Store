@@ -86,15 +86,19 @@ Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name
  Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
 
 // سبد خرید
-Route::post('/add-to-cart/', [CartController::class, 'add'])->name('home.cart.add');
-Route::get('/cart/', [CartController::class, 'index'])->name('home.cart.index');
-Route::put('/cart/', [CartController::class, 'update'])->name('home.cart.update');
+Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
+Route::get('/cart', [CartController::class, 'index'])->name('home.cart.index');
+Route::put('/cart', [CartController::class, 'update'])->name('home.cart.update');
 Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
-Route::get('/clear-cart/', [CartController::class, 'clear'])->name('home.cart.clear');
-Route::post('/check-coupon/', [CartController::class, 'chehkCoupon'])->name('home.coupons.check');
-Route::get('/checkout/', [CartController::class, 'checkout'])->name('home.arders.checkout');
+Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
+Route::post('/check-coupon', [CartController::class, 'chehkCoupon'])->name('home.coupons.check');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('home.arders.checkout');
 
-Route::post('/payment/', [PaymentController::class, 'payment'])->name('home.payment');
+
+// درگاه پرداخت 
+
+Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment');
+Route::get('/payment-verify', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
 
 
 // احراز هویت معمولی 
