@@ -6,21 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-use function Laravel\Prompts\alert;
-
 class PaymentController extends Controller
 {
     public function payment(Request $request)
     {
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), [
 
-            'payment_methode' => ['required'],
             'address_id' => ['required'],
+            'payment_method' => ['required'],
         ]);
 
         if ($validator->fails()) {
-            alert()->error('دقت کنید ', 'انتخاب ادرس الزامی میباشد');
+            alert()->error('دقت کنید ',  'انتخاب ادرس الزامی میباشد');
             return redirect()->back();
         }
 
@@ -28,7 +27,11 @@ class PaymentController extends Controller
         $amount = "10000";
         $redirect = route('home.payment_verify');
         $result = $this->send($api, $amount, $redirect);
+        dd($result);
+
         $result = json_decode($result);
+
+        // dd($result);
 
         if ($result->status) {
             $go = "https://pay.ir/pg/$result->token";
@@ -62,11 +65,30 @@ class PaymentController extends Controller
             'api' => $api,
             'amount' => $amount,
             'redirect' => $redirect,
-            'mobile' => $mobile,
-            'factorNumber' => $factorNumber,
-            'description' => $description,
         ]);
     }
+
+
+    // public function curl_post($url, $params)
+    // {
+    //     $ch = curl_init();
+
+    //     curl_setopt($ch, CURLOPT_URL, $url);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+    //     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    //         'Content-Type: application/json',
+    //     ]);
+
+    //     $res = curl_exec($ch);
+
+    //     curl_close($ch);
+
+    //     return $res;
+    // }
+
 
 
     public function curl_post($url, $params)
@@ -74,21 +96,28 @@ class PaymentController extends Controller
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
+            'Accept: application/json',
         ]);
 
         $res = curl_exec($ch);
+
+        if ($res === false) {
+            dd([
+                'curl_error' => curl_error($ch),
+                'curl_errno' => curl_errno($ch),
+            ]);
+        }
 
         curl_close($ch);
 
         return $res;
     }
-
 
     public function verify($api, $token)
     {
