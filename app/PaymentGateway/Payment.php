@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\PaymentGateway;
 
@@ -9,14 +9,15 @@ use App\Models\Transaction;
 use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Support\Facades\DB;
 
-class Payment{
+class Payment
+{
     public function createOrder($addressId, $amounts, $token, $gateway_name)
     {
         try {
             DB::beginTransaction();
 
             $order =  Order::create([
-                'user_id' => auth()->id,
+                'user_id' => auth()->id(),
                 'address_id' => $addressId,
                 'coupon_id' => session()->has('coupon') ?  session()->get('coupon.id')->id() : null,
                 'total_amount' => $amounts['total_amount'],
@@ -38,10 +39,10 @@ class Payment{
             }
 
             Transaction::create([
-                'user_id' =>  auth()->id,
+                'user_id' =>  auth()->id(),
                 'order_id' => $order->id,
                 'amount' => $amounts['paying_amount'],
-                'tocken' => $token,
+                'token' => $token,
                 'gateway_name' => $gateway_name,
             ]);
 

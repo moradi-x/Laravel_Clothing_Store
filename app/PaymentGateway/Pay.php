@@ -2,6 +2,8 @@
 
 namespace App\PaymentGateway;
 
+use Darryldecode\Cart\Facades\CartFacade;
+
 class Pay extends Payment
 {
     public function send($amounts, $addressId)
@@ -16,7 +18,6 @@ class Pay extends Payment
         if ($result->status) {
 
             $createOrder = parent::createOrder($addressId, $amounts, $result->token, 'pay');
-
             if (array_key_exists('error', $createOrder)) {
                 return $createOrder;
             }
@@ -24,6 +25,7 @@ class Pay extends Payment
 
             $go = "https://pay.ir/pg/$result->token";
             header("location: $go ");
+            return ['success' =>  $go];
         } else {
             return ['error' => $result->errorMessage];
         }
@@ -59,7 +61,35 @@ class Pay extends Payment
         return $res;
     }
 
-    public function verify(){
-        
+    public function verify($token , $status)
+    {
+        $api = 'test';
+        $token = $token;
+        $result = json_decode($this->verifyRequest($api, $token));
+        if (isset($result->status)) {
+            if ($result->status == 1) {
+
+                $updateOrder = parent::updateOrder($token, $result->transId);
+                if (array_key_exists('error', $updateOrder)) {
+                    return $updateOrder;
+                }
+                CartFacade::clear();
+                return ['seccess' => 'با تشکر', ' پرداخت با وفقیت انجام شد' . $result->transId  . 'شماره تراکنش'];
+            } else {
+                return ['error' =>  'با تشکر', ' پرداخت با خطا مواجه  شد' . $result->status  . 'وضعیت  '];
+            }
+        } else {
+            if ($status == 0) {
+                return ['error' =>  'با تشکر', ' پرداخت با خطا مواجه  شد' . $status  . 'وضعیت  '];
+            }
+        }
+    }
+
+    public function verifyRequest($api, $token)
+    {
+        return $this->curl_post('https://pay.ir/pg/verify', [
+            'api'   => $api,
+            'token' => $token,
+        ]);
     }
 }
