@@ -13,7 +13,7 @@ class Zarinpal extends Payment
         $data = array(
             "merchant_id" => "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
             "amount" => $amounts['paying_amount'] * 10,
-            "callback_url" => route('home.payment_verify'),
+            "callback_url" => route('home.payment_verify', ['gatwayName' => 'zarinpal'] ),
             "description" => $description,
             "metadata" => ["email" => "info@email.com", "mobile" => "09121234567"],
         );

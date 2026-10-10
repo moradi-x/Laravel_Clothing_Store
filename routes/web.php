@@ -26,8 +26,9 @@ use App\Notifications\OTPSms;
 use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
-
 use Ipe\Sdk\Facades\SmsIr;
+
+use App\Http\Controllers\Home\TestPaymentController;
 
 //   داشبرد
 Route::get('/admin-panel/management/dashboard', function () {
@@ -97,7 +98,17 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('home.arders.
 
 // درگاه پرداخت 
 Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment');
-Route::get('/payment-verify', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
+Route::get('/payment-verify/{gatwayName}', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
+
+// درگاه پرداخت شتابیت
+Route::get('/test-payment', [TestPaymentController::class, 'index'])->name('test-payment.index');
+Route::get('/test-payment/verify', [  TestPaymentController::class, 'verify',
+])->name('test-payment.verify');
+
+Route::get('/test-payment/start', [
+   TestPaymentController::class,
+    'start',
+])->name('test-payment.start');
 
 
 // احراز هویت معمولی 

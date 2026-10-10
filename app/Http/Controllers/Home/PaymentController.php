@@ -44,67 +44,76 @@ class PaymentController extends Controller
         }
 
 
-        // dd($amounts);
         // درگاه پرداخت پی
-        // $PayGatway = new Pay();
-        // $PayGatwayResult =  $PayGatway->send($amounts, $request->address_id);
-        // if (array_key_exists('error', $PayGatwayResult)) {
-        //     alert()->error($PayGatwayResult['error'], 'دقت کنید')->persistent('حله');
-        //     return redirect()->back();
-        // } else {
-        //     return redirect()->to($PayGatwayResult['success']);
-        // }
+        if ($request->payment_method == 'pay') {
+
+            $PayGatway = new Pay();
+            $PayGatwayResult =  $PayGatway->send($amounts, $request->address_id);
+            if (array_key_exists('error', $PayGatwayResult)) {
+                alert()->error($PayGatwayResult['error'], 'دقت کنید')->persistent('حله');
+                return redirect()->back();
+            } else {
+                return redirect()->to($PayGatwayResult['success']);
+            }
+        }
 
         // درگاه پرداخت زرین پال
-
-        
-
-        $zarinpalGatway = new Zarinpal();
-        $zarinpalGatwayResult =  $zarinpalGatway->send($amounts ,  'خرید تستی' ,  $request->address_id
-          );
-
-        if (array_key_exists('error', $zarinpalGatwayResult)) {
-            alert()->error($zarinpalGatwayResult['error'], 'دقت کنید')->persistent('حله');
-            return redirect()->back();
-        } else {
-            return redirect()->to($zarinpalGatwayResult['success']);
+        if ($request->payment_method == 'zarinpal') {
+            $zarinpalGatway = new Zarinpal();
+            $zarinpalGatwayResult =  $zarinpalGatway->send(
+                $amounts,
+                'خرید تستی',
+                $request->address_id
+            );
+            if (array_key_exists('error', $zarinpalGatwayResult)) {
+                alert()->error($zarinpalGatwayResult['error'], 'دقت کنید')->persistent('حله');
+                return redirect()->back();
+            } else {
+                return redirect()->to($zarinpalGatwayResult['success']);
+            }
         }
+
+        alert()->error('دقت کنید ',  'درگاه پرداخت انتخابی درست نمیباشد ');
+        return redirect()->back();
     }
 
-    public function paymentVerify(Request $request)
+    public function paymentVerify(Request $request, $gatwayName)
     {
 
-        // $PayGatway = new Pay();
-        // $PayGatwayResult =  $PayGatway->verify($request->token, $request->status);
-        // if (array_key_exists('error', $PayGatwayResult)) {
-        //     alert()->error($PayGatwayResult['error'], 'دقت کنید')->persistent('حله');
-        //     return redirect()->back();
-        // } else {
-        //     alert()->success($PayGatwayResult['success'], 'با تشکر');
-        //     return redirect()->route('home.index');
-        // }
-
+        if ($gatwayName == 'pay') { 
+            $PayGatway = new Pay();
+            $PayGatwayResult =  $PayGatway->verify($request->token, $request->status);
+            if (array_key_exists('error', $PayGatwayResult)) {
+                alert()->error($PayGatwayResult['error'], 'دقت کنید')->persistent('حله');
+                return redirect()->back();
+            } else {
+                alert()->success($PayGatwayResult['success'], 'با تشکر');
+                return redirect()->route('home.index');
+            }
+        }
 
 
         // درگاه پرداخت زرین پال
+        if ($gatwayName == 'zarinpal') {
 
-         $amounts = $this->getAmounts();
-        if (array_key_exists('error', $amounts)) {
-            alert()->error('دقت کنید ',  $amounts['error']);
-            return redirect()->route('home.index');
+            $amounts = $this->getAmounts();
+            if (array_key_exists('error', $amounts)) {
+                alert()->error('دقت کنید ',  $amounts['error']);
+                return redirect()->route('home.index');
+            }
+            $zarinpalGatway  = new Zarinpal();
+            $zarinpalGatwayResult =  $zarinpalGatway->verify($request->Authority, $amounts['paying_amount']);
+            if (array_key_exists('error', $zarinpalGatwayResult)) {
+                alert()->error($zarinpalGatwayResult['error'], 'دقت کنید')->persistent('حله');
+                return redirect()->back();
+            } else {
+                alert()->success($zarinpalGatwayResult['success'], 'با تشکر');
+                return redirect()->route('home.index');
+            }
         }
-        
-        $zarinpalGatway  = new Zarinpal();
-        $zarinpalGatwayResult =  $zarinpalGatway->verify($request->Authority, $amounts['paying_amount'] );
-        if (array_key_exists('error', $zarinpalGatwayResult)) {
-            alert()->error($zarinpalGatwayResult['error'], 'دقت کنید')->persistent('حله');
-            return redirect()->back();
-        } else {
-            alert()->success($zarinpalGatwayResult['success'], 'با تشکر');
-            return redirect()->route('home.index');
-        }
+          alert()->error('دقت کنید ',  'درگاه پرداخت انتخابی درست نمیباشد ');
+        return redirect()->route('home.arders.checkout');
     }
-
 
     public function checkCart()
     {
