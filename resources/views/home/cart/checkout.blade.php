@@ -9,10 +9,10 @@
         const citySelect = document.getElementById('city-select-create');
         const oldCityId = "{{ old('city_id') }}";
 
-                    $('#address-input').val($('#address-select').val());
+        $('#address-input').val($('#address-select').val());
 
 
-        $('#address-select').change(function(){
+        $('#address-select').change(function() {
             $('#address-input').val($(this).val());
         });
 
@@ -124,7 +124,7 @@
                                         <label> انتخاب آدرس تحویل سفارش <abbr class="required"
                                                 title="required">*</abbr></label>
 
-                                        <select class="email s-email s-wid" id="address-select" >
+                                        <select class="email s-email s-wid" id="address-select">
 
                                             @foreach ($addresses as $address)
                                                 <option value="{{ $address->id }}"> {{ $address->title }} </option>
@@ -245,8 +245,12 @@
                     </div>
 
                     <div class="col-lg-5">
-                        <form action="{{ route('home.payment') }}" method="post" >
-                            @csrf
+                        {{-- درگاه پرداخت خودمون --}}
+                        <form action="{{ route('home.payment') }}" method="post">
+
+                            {{--  شتابت --}}
+                            {{-- <form action="{{ route('shetabit-checkout.start') }}" method="post">
+                            @csrf --}}
                             <div class="your-order-area">
                                 <h3> سفارش شما </h3>
                                 <div class="your-order-wrap gray-bg-4">
@@ -270,11 +274,11 @@
                                                                 {{ $item->attributes->value }}
                                                             </p>
                                                         </div>
-    
+
                                                         <span>
                                                             {{ number_format($item->price) }}
                                                             تومان
-    
+
                                                             @if ($item->attributes->is_sale)
                                                                 <p style=" font-size: 12px ; color:red">
                                                                     {{ $item->attributes->percent_sale }}%
@@ -309,7 +313,7 @@
                                                 </ul>
                                             </div>
                                         @endif
-    
+
                                         @if (session()->has('coupon'))
                                             <div class="your-order-info order-subtotal">
                                                 <ul>
@@ -323,7 +327,7 @@
                                                 </ul>
                                             </div>
                                         @endif
-    
+
                                         <div class="your-order-info order-shipping">
                                             <ul>
                                                 <li>
@@ -346,13 +350,13 @@
                                                 <li>جمع کل
                                                     <span>
                                                         {{ number_format(cartTotalAmount()) }}
-    
+
                                                         تومان </span>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-    
+
                                     <div class="payment-method">
                                         <div class="pay-top sin-payment">
                                             <input id="zarinpal" class="input-radio" type="radio" value="zarinpal"
@@ -360,7 +364,8 @@
                                             <label for="zarinpal"> درگاه پرداخت زرین پال </label>
                                             <div class="payment-box payment_method_bacs">
                                                 <p>
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
+                                                    از
                                                     طراحان گرافیک است.
                                                 </p>
                                             </div>
@@ -371,7 +376,8 @@
                                             <label for="pay">درگاه پرداخت پی</label>
                                             <div class="payment-box payment_method_bacs">
                                                 <p>
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
+                                                    از
                                                     طراحان گرافیک است.
                                                 </p>
                                             </div>
@@ -383,7 +389,10 @@
                                 </div>
                             </div>
 
-                            <input type=" hidden" name="address_id" id="address-input" >
+                            <input type=" hidden" name="address_id" id="address-input">
+                            {{-- اگر شتابیت رفتی اینو انتخاب کن --}}
+                            {{-- <input type="hidden" name="address_id" id="address-input"
+                                value="{{ $addresses->first()->id ?? '' }}"> --}}
                         </form>
                     </div>
 

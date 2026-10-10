@@ -80,7 +80,7 @@ class PaymentController extends Controller
     public function paymentVerify(Request $request, $gatwayName)
     {
 
-        if ($gatwayName == 'pay') { 
+        if ($gatwayName == 'pay') {
             $PayGatway = new Pay();
             $PayGatwayResult =  $PayGatway->verify($request->token, $request->status);
             if (array_key_exists('error', $PayGatwayResult)) {
@@ -111,7 +111,7 @@ class PaymentController extends Controller
                 return redirect()->route('home.index');
             }
         }
-          alert()->error('دقت کنید ',  'درگاه پرداخت انتخابی درست نمیباشد ');
+        alert()->error('دقت کنید ',  'درگاه پرداخت انتخابی درست نمیباشد ');
         return redirect()->route('home.arders.checkout');
     }
 

@@ -27,8 +27,8 @@ use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 use Ipe\Sdk\Facades\SmsIr;
+use App\Http\Controllers\Home\ShetabitCheckoutController;
 
-use App\Http\Controllers\Home\TestPaymentController;
 
 //   داشبرد
 Route::get('/admin-panel/management/dashboard', function () {
@@ -84,7 +84,7 @@ Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remov
 // مقایسه محصول 
 Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
 Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
- Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
+Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
 
 // سبد خرید
 Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
@@ -100,15 +100,14 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('home.arders.
 Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment');
 Route::get('/payment-verify/{gatwayName}', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
 
-// درگاه پرداخت شتابیت
-Route::get('/test-payment', [TestPaymentController::class, 'index'])->name('test-payment.index');
-Route::get('/test-payment/verify', [  TestPaymentController::class, 'verify',
-])->name('test-payment.verify');
 
-Route::get('/test-payment/start', [
-   TestPaymentController::class,
-    'start',
-])->name('test-payment.start');
+// درگاه پرداخت شتابیت
+Route::middleware('auth')->group(function () {
+    Route::post('/shetabit-checkout', [ShetabitCheckoutController::class,   'start',])->name('shetabit-checkout.start');
+
+    Route::get('/shetabit-checkout/verify/{order}', [ShetabitCheckoutController::class,  'verify',])->name('shetabit-checkout.verify');
+});
+
 
 
 // احراز هویت معمولی 
@@ -120,20 +119,20 @@ Route::get('/test-payment/start', [
 // Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']); 
 
 // احراز هویت با otp سامانه پیامکی
-Route::any('login', [AuthControllser::class, 'login'])->name('login') ; 
-Route::post('check-otp', [AuthControllser::class, 'checkOtp']) ; 
-Route::post('resend-otp', [AuthControllser::class, 'resendOtp']) ; 
+Route::any('login', [AuthControllser::class, 'login'])->name('login');
+Route::post('check-otp', [AuthControllser::class, 'checkOtp']);
+Route::post('resend-otp', [AuthControllser::class, 'resendOtp']);
 
 // پروفابل کاربر 
 Route::prefix('/profile')->name('home.')->group(function () {
-  Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
-  Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
-  Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
+    Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
+    Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
+    Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
 
-  // ادرس کاربر
-  Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
-  Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
-  Route::put('/addresses/{addresses}', [AddressController::class, 'update'])->name('addresses.update');
+    // ادرس کاربر
+    Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+    Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
+    Route::put('/addresses/{addresses}', [AddressController::class, 'update'])->name('addresses.update');
 });
 
 // روت گرفتن استان و شهر در قسمت پروفایل
