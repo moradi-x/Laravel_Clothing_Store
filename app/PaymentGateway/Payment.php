@@ -85,6 +85,7 @@ class Payment
 
 
             DB::commit();
+            return ['success' => 'Order updated successfully'];
         } catch (\Exception $th) {
             DB::rollBack();
             return ['error' => $th->getMessage()];

@@ -12,7 +12,7 @@ class Zarinpal extends Payment
 
         $data = array(
             "merchant_id" => "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-            "amount" => $amounts['paying_amount'] . '0',
+            "amount" => $amounts['paying_amount'] * 10,
             "callback_url" => route('home.payment_verify'),
             "description" => $description,
             "metadata" => ["email" => "info@email.com", "mobile" => "09121234567"],
@@ -58,7 +58,19 @@ class Zarinpal extends Payment
 
     public function verify($Authority, $amount)
     {
-        $data = array("merchant_id" => "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "authority" => $Authority, "amount" => $amoun);
+
+        if (request()->input('Status') !== 'OK') {
+            return [
+                'error' => 'پرداخت توسط کاربر لغو شد یا ناموفق بود.',
+            ];
+        }
+
+        $data = array(
+            "merchant_id" => "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+            "authority" => $Authority,
+            "amount" => ($amount * 10)
+        );
+
         $jsonData = json_encode($data);
         $ch = curl_init('https://sandbox.zarinpal.com/pg/v4/payment/verify.json');
         curl_setopt($ch, CURLOPT_USERAGENT, 'ZarinPal Rest Api v4');
@@ -74,6 +86,7 @@ class Zarinpal extends Payment
         $err = curl_error($ch);
         curl_close($ch);
         $result = json_decode($result, true);
+
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
@@ -89,8 +102,14 @@ class Zarinpal extends Payment
             } else {
                 // return ['error' => 'Transation success. RefID:' . $result['data']['ref_id']];
 
-                echo 'code: ' . $result['errors']['code'];
-                echo 'message: ' . $result['errors']['message'];
+                // echo 'code: ' . $result['errors']['code'];
+                // echo 'message: ' . $result['errors']['message'];
+
+                return [
+                    'error' => $result['errors']['message'] ?? $result['data']['message']  ?? 'پرداخت تأیید نشد.',
+                    'code' => $result['errors']['code'] ?? $result['data']['code']  ?? null,
+                    'response' => $result,
+                ];
             }
         }
     }

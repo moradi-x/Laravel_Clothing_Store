@@ -96,7 +96,6 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('home.arders.
 
 
 // درگاه پرداخت 
-
 Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment');
 Route::get('/payment-verify', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
 
@@ -142,6 +141,6 @@ Route::get('/get-province-cities', [AddressController::class, 'getProvinceCities
 
 
 Route::get('/test', function () {
-    // CartFacade::clear();
-    dd(CartFacade::getContent()) ;
+    CartFacade::clear();
+    // dd(CartFacade::getContent()) ;
 });
