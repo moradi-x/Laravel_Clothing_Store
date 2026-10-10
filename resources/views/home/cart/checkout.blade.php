@@ -249,8 +249,8 @@
                         <form action="{{ route('home.payment') }}" method="post">
 
                             {{--  شتابت --}}
-                            {{-- <form action="{{ route('shetabit-checkout.start') }}" method="post">
-                            @csrf --}}
+                            {{-- <form action="{{ route('shetabit-checkout.start') }}" method="post"> --}}
+                            @csrf
                             <div class="your-order-area">
                                 <h3> سفارش شما </h3>
                                 <div class="your-order-wrap gray-bg-4">

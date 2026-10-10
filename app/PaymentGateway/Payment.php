@@ -64,6 +64,11 @@ class Payment
 
             $transaction =  Transaction::where('token', $token)->firstOrFail();
 
+            if ($transaction->status == 1) {
+                DB::rollBack();
+                return ['success' => 'این پرداخت قبلاً تأیید شده است'];
+            }
+
             $transaction->update([
                 'status' => 1,
                 'ref_id' => $ref_id,
@@ -76,6 +81,7 @@ class Payment
                 'status' => 1,
             ]);
 
+            // مسئول کم‌کردن موجودی:
             foreach (CartFacade::getContent() as $item) {
                 $variation = ProductVariation::find($item->attributes->id);
                 $variation->update([

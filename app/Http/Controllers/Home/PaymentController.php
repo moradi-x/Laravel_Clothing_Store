@@ -135,11 +135,8 @@ class PaymentController extends Controller
                 CartFacade::clear();
                 return ['error' => 'تعداد محصول تغییر پیدا کرد '];
             }
-
-            return ['succsess' => 'succsess! '];
-
-            // dd($variation);
         }
+        return ['succsess' => 'succsess! '];
     }
 
     public function getAmounts()

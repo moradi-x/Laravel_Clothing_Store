@@ -27,7 +27,7 @@ use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 use Ipe\Sdk\Facades\SmsIr;
-use App\Http\Controllers\Home\ShetabitCheckoutController;
+// use App\Http\Controllers\Home\ShetabitCheckoutController;
 
 
 //   داشبرد
@@ -102,18 +102,19 @@ Route::get('/payment-verify/{gatwayName}', [PaymentController::class, 'paymentVe
 
 
 // درگاه پرداخت شتابیت
-Route::middleware('auth')->group(function () {
-    Route::post('/shetabit-checkout', [ShetabitCheckoutController::class,   'start',])->name('shetabit-checkout.start');
+// Route::middleware('auth')->group(function () {
+//     Route::post('/shetabit-checkout', [ShetabitCheckoutController::class,   'start',])->name('shetabit-checkout.start');
 
-    Route::get('/shetabit-checkout/verify/{order}', [ShetabitCheckoutController::class,  'verify',])->name('shetabit-checkout.verify');
-});
-
+//     Route::get('/shetabit-checkout/verify/{order}', [ShetabitCheckoutController::class,  'verify',])->name('shetabit-checkout.verify');
+// });
 
 
 // احراز هویت معمولی 
 // Route::get('/test', function () {
 //     auth()->logout();
 // });
+
+
 // احراز هویت با اکانت گوگل outh
 // Route::get('login/{provider}', [AuthControllser::class, 'redirectToProvider'])->name('provider.login');
 // Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']); 
@@ -133,6 +134,9 @@ Route::prefix('/profile')->name('home.')->group(function () {
     Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
     Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
     Route::put('/addresses/{addresses}', [AddressController::class, 'update'])->name('addresses.update');
+
+    // سفارشات 
+    Route::get('/orders', [CartController::class, 'usersProfileIndex'])->name('orders.users_profile.index');
 });
 
 // روت گرفتن استان و شهر در قسمت پروفایل
@@ -140,17 +144,13 @@ Route::get('/get-province-cities', [AddressController::class, 'getProvinceCities
     ->name('getProvinceCitiesList');
 
 
-// Route::get('/test', function () {
-//     $user = User::find(1);
-//     $user->notify(new OTPSms(11228));
-// });
-
-// Route::get('/test', function () {
-//     dd(session()->get('compareProduct')) ;
-// });
 
 
 Route::get('/test', function () {
-    CartFacade::clear();
+    //     $user = User::find(1);
+    //     $user->notify(new OTPSms(11228));
+    //     dd(session()->get('compareProduct')) ;
     // dd(CartFacade::getContent()) ;
+
+    CartFacade::clear();
 });

@@ -24,4 +24,5 @@ class CategoryController extends Controller
             'products'
         ));
     }
+    
 }
