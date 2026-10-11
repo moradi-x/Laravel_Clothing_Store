@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Product;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,39 +22,14 @@ class HomeController extends Controller
         return view('home.index' , compact('sliders','indexTopBanners','indexTopBotomBanners','products') );
     }
 
-    
-    public function create()
-    {
-        //
+    public function aboutUs(){
+        $BotomBanners = Banner::where('type' , 'index-bottom')->where('is_active', 1)->orderBy('priority')->get();
+        return view('home.about-us' , compact('BotomBanners') );
     }
 
-    
-    public function store(Request $request)
-    {
-        //
+     public function contactUs(){
+        $setting = Setting::findOrFail(1); 
+        return view('home.contact-us' , compact('setting') );
     }
 
-    
-    public function show(string $id)
-    {
-        //
-    }
-
-    
-    public function edit(string $id)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    
-    public function destroy(string $id)
-    {
-        //
-    }
 }

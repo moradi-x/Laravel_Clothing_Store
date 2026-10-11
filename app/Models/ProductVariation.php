@@ -12,7 +12,7 @@ class ProductVariation extends Model
     use HasFactory, SoftDeletes;
     protected $table = "product_variations";
     protected $guarded = [];
-    protected $appends = ['is_sale' , 'percent_sale'];
+    protected $appends = ['is_sale', 'percent_sale'];
 
     public function getIsSaleAttribute()
     {

@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-    - index transaction
+    index transaction
 @endsection
 @section('content')
     <!-- Content Row -->

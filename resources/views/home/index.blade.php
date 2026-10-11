@@ -312,7 +312,7 @@
         </div>
     </div>
 
-    <div class="feature-area" style="direction: rtl;">
+    <div class="feature-area pt-50 pb-50 " style="direction: rtl;">
         <div class="container">
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-4">

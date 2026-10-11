@@ -113,12 +113,6 @@ Route::get('/payment-verify/{gatwayName}', [PaymentController::class, 'paymentVe
 // });
 
 
-// احراز هویت معمولی 
-// Route::get('/test', function () {
-//     auth()->logout();
-// });
-
-
 // احراز هویت با اکانت گوگل outh
 // Route::get('login/{provider}', [AuthControllser::class, 'redirectToProvider'])->name('provider.login');
 // Route::get('login/{provider}/callback', [AuthControllser::class, 'handleProviderCallback']); 
@@ -147,10 +141,14 @@ Route::prefix('/profile')->name('home.')->group(function () {
 Route::get('/get-province-cities', [AddressController::class, 'getProvinceCitiesList'])
     ->name('getProvinceCitiesList');
 
+// درباره ما  
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about-us');
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('home.contact-us');
 
 
 
 Route::get('/test', function () {
+    //     auth()->logout();
     //     $user = User::find(1);
     //     $user->notify(new OTPSms(11228));
     //     dd(session()->get('compareProduct')) ;
