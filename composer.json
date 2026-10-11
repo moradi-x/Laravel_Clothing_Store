@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "anetwork/validation": "^2.3",
+        "artesaos/seotools": "^1.4",
         "cviebrock/eloquent-sluggable": "^12.0",
         "darryldecode/cart": "^4.2",
         "ghasedaksms/ghasedaksms-laravel": "^1.0",
@@ -18,7 +19,8 @@
         "laravel/socialite": "^5.31",
         "laravel/tinker": "^2.10.1",
         "realrashid/sweet-alert": "^7.3",
-        "shetabit/payment": "^6.4"
+        "shetabit/payment": "^6.4",
+        "timehunter/laravel-google-recaptcha-v3": "~2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
