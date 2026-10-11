@@ -19,8 +19,10 @@
         "laravel/socialite": "^5.31",
         "laravel/tinker": "^2.10.1",
         "realrashid/sweet-alert": "^7.3",
+        "rumenx/php-sitemap": "^1.0",
         "shetabit/payment": "^6.4",
-        "timehunter/laravel-google-recaptcha-v3": "~2.5"
+        "timehunter/laravel-google-recaptcha-v3": "~2.5",
+        "ultrono/laravel-sitemap": "^10.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

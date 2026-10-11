@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\ContactUs;
 use App\Models\Product;
 use App\Models\Setting;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
@@ -15,6 +16,17 @@ class HomeController extends Controller
 
     public function index()
     {
+
+        SEOTools::setTitle('Home');
+        SEOTools::setDescription('STUDIO MORADIX');
+        SEOTools::opengraph()->setUrl(route('home.index'));
+        SEOTools::setCanonical('https://codecasts.com.br/lesson');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+        SEOTools::twitter()->setSite('@LuizVinicius73');
+        SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
+
+
+
         $sliders = Banner::where('type', 'slider')->where('is_active', 1)->orderBy('priority')->get();
         $indexTopBanners = Banner::where('type', 'index-top')->where('is_active', 1)->orderBy('priority')->get();
         $indexTopBotomBanners = Banner::where('type', 'index-bottom')->where('is_active', 1)->orderBy('priority')->get();
@@ -42,7 +54,7 @@ class HomeController extends Controller
             'email' => ['required', 'email'],
             'subject' => ['required', 'string', 'min:4', 'max:100'],
             'text' => ['required', 'string', 'min:4', 'max:500'],
-             'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('contact_us')] ,
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('contact_us')],
         ]);
 
         ContactUs::create([
@@ -53,7 +65,6 @@ class HomeController extends Controller
         ]);
 
         alert()->success('پیام شما با موفقیت ارسال شد ',  'با تشکر ');
-        return redirect()->back(); 
-
+        return redirect()->back();
     }
 }

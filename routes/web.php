@@ -30,7 +30,7 @@ use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 use Ipe\Sdk\Facades\SmsIr;
 // use App\Http\Controllers\Home\ShetabitCheckoutController;
-
+use App\Http\Controllers\Home\SitemapController;
 
 //   داشبرد
 Route::get('/admin-panel/management/dashboard', function () {
@@ -146,6 +146,8 @@ Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about-us
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('home.contact-us');
 Route::post('/contact-us-form', [HomeController::class, 'contactUsForm'])->name('home.contact-us.form');
 
+// sitemap
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 
 Route::get('/test', function () {

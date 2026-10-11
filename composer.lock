@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "36034fd53246e0041b17b5c1ed54764a",
+    "content-hash": "cf4da3e61082bfe7252b4aff8a1d71b2",
     "packages": [
         {
             "name": "anetwork/validation",
@@ -5179,6 +5179,74 @@
             "time": "2026-03-29T14:20:34+00:00"
         },
         {
+            "name": "rumenx/php-sitemap",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RumenDamyanov/php-sitemap.git",
+                "reference": "4ce2092257703e6ee5328f2ac93172700e6bdd4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RumenDamyanov/php-sitemap/zipball/4ce2092257703e6ee5328f2ac93172700e6bdd4f",
+                "reference": "4ce2092257703e6ee5328f2ac93172700e6bdd4f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench-core": "^10.4",
+                "pestphp/pest": "^2.0",
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^10.0",
+                "squizlabs/php_codesniffer": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rumenx\\Sitemap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rumen Damyanov",
+                    "email": "contact@rumenx.com",
+                    "homepage": "https://rumenx.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Framework-agnostic Sitemap generator for PHP, Laravel, and Symfony.",
+            "homepage": "https://github.com/RumenDamyanov/php-sitemap",
+            "keywords": [
+                "Sitemap",
+                "generator",
+                "google-news",
+                "html",
+                "laravel",
+                "php",
+                "symfony",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/RumenDamyanov/php-sitemap/issues",
+                "source": "https://github.com/RumenDamyanov/php-sitemap",
+                "wiki": "https://github.com/RumenDamyanov/php-sitemap/wiki"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/RumenDamyanov",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-09-03T07:57:58+00:00"
+        },
+        {
             "name": "shetabit/multipay",
             "version": "v2.11.0",
             "source": {
@@ -8776,6 +8844,76 @@
                 "source": "https://github.com/RyanDaDeng/laravel-google-recaptcha-v3/tree/v2.5.3"
             },
             "time": "2024-06-07T23:46:11+00:00"
+        },
+        {
+            "name": "ultrono/laravel-sitemap",
+            "version": "10.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ultrono/laravel-sitemap.git",
+                "reference": "c637558fbbc303684cefc0698f97eea6d4fd345d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ultrono/laravel-sitemap/zipball/c637558fbbc303684cefc0698f97eea6d4fd345d",
+                "reference": "c637558fbbc303684cefc0698f97eea6d4fd345d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "phpunit/phpunit": "^11.5.3|^12.5.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ultrono\\Sitemap\\SitemapServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ultrono\\Sitemap": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rumen Damyanov",
+                    "email": "r@alfamatter.com",
+                    "homepage": "https://darumen.com",
+                    "role": "Original Developer"
+                },
+                {
+                    "name": "Rob Allport",
+                    "email": "rob@f9web.co.uk",
+                    "homepage": "https://f9web.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Sitemap generator for Laravel 11, 12 and 13",
+            "keywords": [
+                "Sitemap",
+                "generator",
+                "google-news",
+                "html",
+                "laravel",
+                "php",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/ultrono/laravel-sitemap/issues",
+                "source": "https://github.com/ultrono/laravel-sitemap/tree/10.0.0"
+            },
+            "time": "2026-03-19T18:43:15+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
