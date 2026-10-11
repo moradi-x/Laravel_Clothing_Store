@@ -63,4 +63,14 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(UserAddress::class);
+    }
 }

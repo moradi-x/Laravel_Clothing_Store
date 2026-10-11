@@ -130,7 +130,7 @@
                                                                     alt="">
                                                             </a>
                                                         </td>
-                                                        <td class="product-name"><a href="#">
+                                                        <td class="product-name"><a href="{{ route('home.products.show', ['product' => $item->product->slug]) }}">
 
                                                                 {{ $item->product->name }} </a></td>
                                                         <td class="product-price-cart"><span class="amount">
