@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
-     public function index()
+    public function index()
     {
         $roles = Role::oldest()->paginate(20);
         return view('admin.roles.index', compact('roles'));
@@ -18,30 +19,49 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        return view('admin.roles.create' , compact('permissions'));
+        return view('admin.roles.create', compact('permissions'));
     }
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
+
         $request->validate(rules: [
             "name" => ['required'],
             "display_name" => ['required']
         ]);
 
-        Permission::create([
-            'name' => $request->name,
-            'display_name' => $request->display_name,
-            'guard_name' => 'Web',
-        ]);
 
-        alert()->success('پرمیژن مورد نظر با موفقیت ایجاد شد', 'با تشکر');
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('admin.permissions.index');
+            $role =  Role::create([
+                'name' => $request->name,
+                'display_name' => $request->display_name,
+                'guard_name' => 'Web',
+            ]);
+            $permission = $request->except('_token', 'display_name', 'name');
+            // dd($permission);
+            $role->givePermissionTo($permission);
+
+            DB::commit();
+        } catch (\Throwable $ex) {
+            DB::rollBack();
+
+            alert()->error('مشکل در ایجاد  محصول',  $ex->getMessage())->persistent('حله');
+            return redirect()->back();
+        }
+
+
+        alert()->success('نفش مورد نظر با موفقیت ایجاد شد', 'با تشکر');
+
+        return redirect()->route('admin.roles.index');
     }
 
     public function edit(Permission $permission)
     {
-        return view('admin.permissions.edit', compact('permission'));
+        return view('admin.roles.edit', compact('permission'));
     }
 
 
@@ -60,6 +80,11 @@ class RoleController extends Controller
 
         alert()->success('پرمیژن مورد نظر با موفقیت ویراش شد', 'با تشکر');
 
-        return redirect()->route('admin.permissions.index');
+        return redirect()->route('admin.roles.index');
+    }
+
+    public function show(Role $role)
+    {
+        return view('admin.roles.show', compact('role'));
     }
 }

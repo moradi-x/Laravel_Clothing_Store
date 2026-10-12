@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 @section('title')
-     create roles
+    create roles
 @endsection
 @section('content')
     <!-- Content Row -->
@@ -29,25 +29,32 @@
                         <input class="form-control" id="name" name="name" type="text"
                             value="{{ old('name') }} ">
                     </div>
+                </div>
 
-                    <p>
-                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-                            aria-expanded="false" aria-controls="collapseExample">
-                            Link with href
-                        </a>
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample">
-                            Button with data-target
+                {{-- <div class="  mt-7"> --}}
+                    <p class=" mt-3" >
+                        <button class="btn btn-primary text-right p-1 " type="button" data-toggle="collapse"
+                            data-target="#collapsepermissions" aria-expanded="false" aria-controls="collapsepermissions">
+                            مجوز های دسترسی
+
                         </button>
                     </p>
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            Some placeholder content for the collapse component. This panel is hidden by default but
-                            revealed when the user activates the relevant trigger.
+                    <div class="collapse" id="collapsepermissions">
+                        <div class="card card-body  ">
+                            <div class="form-row">
+                                @foreach ($permissions as $permission)
+                                    <div class="form-group form-check col-md-3">
+                                        <input type="checkbox" class="form-check-input"
+                                            id="permission_{{ $permission->id }}" name="{{ $permission->name }}"
+                                            value="{{ $permission->name }}">
+                                        <label class="form-check-label mr-3" for="permission_{{ $permission->id }}">
+                                            {{ $permission->display_name }} </label>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-
-                </div>
+                {{-- </div> --}}
                 <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
                 <a href="{{ route('admin.roles.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
             </form>

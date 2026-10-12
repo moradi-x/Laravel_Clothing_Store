@@ -11,12 +11,12 @@
         <div class="col-xl-12 col-md-12 mb-4 p-4 bg-white ">
             <div class="  d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
                 <h5 class="font-weight-bold mb-3 mb-0 mb-3 mb-md-0">
-                    لیست پرمیزن ها ( {{ $roles->total() }} )
+                    لیست نقش ها ( {{ $roles->total() }} )
                 </h5>
                 <div>
                     <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.roles.create') }}">
                         <i class="fa fa-plus"></i>
-                        ایجاد پرمیژن
+                        ایجاد نقش
                     </a>
                 </div>
             </div>
@@ -25,8 +25,8 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> نام </th>
                             <th> نام نمایشی</th>
+                            <th> نام </th>
                             <th> عملیات </th>
                         </tr>
                     </thead>
@@ -37,10 +37,10 @@
                                     {{ $roles->firstitem() + $key }}
                                 </th>
                                 <th>
+                                   {{ $role->display_name }}
+                               </th>
+                                <th>
                                     {{ $role->name }}
-                                </th>
-                                 <th>
-                                    {{ $role->display_name }}
                                 </th>
                                 <th>
                                     <a class="btn btn-sm btn-outline-success"
