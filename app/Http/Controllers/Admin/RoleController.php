@@ -39,7 +39,7 @@ class RoleController extends Controller
             $role =  Role::create([
                 'name' => $request->name,
                 'display_name' => $request->display_name,
-                'guard_name' => 'Web',
+                'guard_name' => 'web',
             ]);
             $permission = $request->except('_token', 'display_name', 'name');
             // dd($permission);
@@ -59,26 +59,45 @@ class RoleController extends Controller
         return redirect()->route('admin.roles.index');
     }
 
-    public function edit(Permission $permission)
+    public function edit(Role $role)
     {
-        return view('admin.roles.edit', compact('permission'));
+        $permissions = Permission::all();
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
 
-    public function update(Permission $permission, Request $request)
+    public function update(Request $request, Role $role)
     {
-
-        $request->validate([
-            'display_name' => ['required'],
-            'name' => ['required'],
+        $request->validate(rules: [
+            "name" => ['required'],
+            "display_name" => ['required']
         ]);
 
-        $permission->update([
-            'display_name' => $request->display_name,
-            'name' => $request->name,
-        ]);
 
-        alert()->success('پرمیژن مورد نظر با موفقیت ویراش شد', 'با تشکر');
+        try {
+            DB::beginTransaction();
+
+            $role->update([
+                'name' => $request->name,
+                'display_name' => $request->display_name,
+                'guard_name' => 'web',
+            ]);
+
+            $permission = $request->except('_token', 'display_name', 'name', '_method');
+
+           
+            $role->syncPermissions($permission);
+
+            DB::commit();
+        } catch (\Throwable $ex) {
+            DB::rollBack();
+
+            alert()->error('مشکل در ویرایش نقش  ',  $ex->getMessage())->persistent('حله');
+            return redirect()->back();
+        }
+
+
+        alert()->success('نفش مورد نظر با موفقیت ویرایش شد', 'با تشکر');
 
         return redirect()->route('admin.roles.index');
     }

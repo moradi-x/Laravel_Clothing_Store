@@ -29,7 +29,7 @@ class PermissionController extends Controller
         Permission::create([
             'name' => $request->name,
             'display_name' => $request->display_name,
-            'guard_name' => 'Web',
+            'guard_name' => 'web',
         ]);
 
         alert()->success('پرمیژن مورد نظر با موفقیت ایجاد شد', 'با تشکر');

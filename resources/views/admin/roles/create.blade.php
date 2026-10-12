@@ -31,30 +31,27 @@
                     </div>
                 </div>
 
-                {{-- <div class="  mt-7"> --}}
-                    <p class=" mt-3" >
-                        <button class="btn btn-primary text-right p-1 " type="button" data-toggle="collapse"
-                            data-target="#collapsepermissions" aria-expanded="false" aria-controls="collapsepermissions">
-                            مجوز های دسترسی
+                <p class=" mt-3">
+                    <button class="btn btn-primary text-right p-1 " type="button" data-toggle="collapse"
+                        data-target="#collapsepermissions" aria-expanded="false" aria-controls="collapsepermissions">
+                        مجوز های دسترسی
 
-                        </button>
-                    </p>
-                    <div class="collapse" id="collapsepermissions">
-                        <div class="card card-body  ">
-                            <div class="form-row">
-                                @foreach ($permissions as $permission)
-                                    <div class="form-group form-check col-md-3">
-                                        <input type="checkbox" class="form-check-input"
-                                            id="permission_{{ $permission->id }}" name="{{ $permission->name }}"
-                                            value="{{ $permission->name }}">
-                                        <label class="form-check-label mr-3" for="permission_{{ $permission->id }}">
-                                            {{ $permission->display_name }} </label>
-                                    </div>
-                                @endforeach
-                            </div>
+                    </button>
+                </p>
+                <div class="collapse" id="collapsepermissions">
+                    <div class="card card-body  ">
+                        <div class="form-row">
+                            @foreach ($permissions as $permission)
+                                <div class="form-group form-check col-md-3">
+                                    <input type="checkbox" class="form-check-input" id="permission_{{ $permission->id }}"
+                                        name="{{ $permission->name }}" value="{{ $permission->name }}">
+                                    <label class="form-check-label mr-3" for="permission_{{ $permission->id }}">
+                                        {{ $permission->display_name }} </label>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                {{-- </div> --}}
+                </div>
                 <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
                 <a href="{{ route('admin.roles.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
             </form>

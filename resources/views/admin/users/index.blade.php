@@ -42,9 +42,6 @@
                                     {{ $user->cellphone }}
                                 </th>
                                 <th>
-                                    {{ $user->name }}
-                                </th>
-                                <th>
                                     <a class="btn btn-sm btn-outline-info mr-3 "
                                         href="{{ route('admin.users.edit', ['user' => $user->id]) }}">ویرایش</a>
                                 </th>

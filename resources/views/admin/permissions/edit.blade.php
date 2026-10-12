@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 @section('title')
-    - edit  permission 
+    - edit permission
 @endsection
 @section('content')
     <!-- Content Row -->
@@ -21,12 +21,14 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="name">نام نمایشی </label>
-                        <input class="form-control" id="name" name="display_name" type="text" value="{{ $permission->display_name }}">
+                        <input class="form-control" id="name" name="display_name" type="text"
+                            value="{{ $permission->display_name }}">
                     </div>
 
                     <div class="form-group col-md-3">
                         <label for="name">نام</label>
-                        <input class="form-control" id="name" name="name" type="text" value="{{ $permission->name }}">
+                        <input class="form-control" id="name" name="name" type="text"
+                            value="{{ $permission->name }}">
                     </div>
                 </div>
                 <button class="btn btn-outline-primary mt-5" type="submit">ویرایش</button>
