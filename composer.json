@@ -21,6 +21,7 @@
         "realrashid/sweet-alert": "^7.3",
         "rumenx/php-sitemap": "^1.0",
         "shetabit/payment": "^6.4",
+        "spatie/laravel-permission": "^6.25",
         "timehunter/laravel-google-recaptcha-v3": "~2.5",
         "ultrono/laravel-sitemap": "^10.0"
     },
