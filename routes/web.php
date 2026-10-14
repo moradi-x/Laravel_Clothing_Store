@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
@@ -36,9 +37,7 @@ use Ipe\Sdk\Facades\SmsIr;
 use App\Http\Controllers\Home\SitemapController;
 
 //   داشبرد
-Route::get('/admin-panel/management/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::get('/admin-panel/management/dashboard', [AdminController::class , 'index'])->name('dashboard');
 
 // ادمین 
 Route::prefix('/admin-panel/management')->name('admin.')->group(function () {

@@ -32,11 +32,20 @@
             <i class="fas fa-fw fa-users"></i>
             <span> کاربران </span>
         </a>
-        <div id="collapseUsers" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseUsers"
+            class="collapse 
+        {{ request()->is('admin-panel/management/users*') ? 'show' : '' }} 
+        {{ request()->is('admin-panel/management/roles*') ? 'show' : '' }} 
+        {{ request()->is('admin-panel/management/permission*') ? 'show' : '' }} "
+            aria-labelledby="headingPages" data-parent="#accordionSidebar">
+
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.users.index') }}"> لیست کاربران</a>
-                <a class="collapse-item" href="{{ route('admin.roles.index') }}">گروه های کاربری </a>
-                <a class="collapse-item" href="{{ route('admin.permissions.index') }}"> پرمیژن ها </a>
+                <a class="collapse-item  {{ request()->is('admin-panel/management/users*') ? 'active' : '' }} "
+                    href="{{ route('admin.users.index') }}"> لیست کاربران</a>
+                <a class="collapse-item {{ request()->is('admin-panel/management/roles*') ? 'active' : '' }} "
+                    href="{{ route('admin.roles.index') }}">گروه های کاربری </a>
+                <a class="collapse-item {{ request()->is('admin-panel/management/permission*') ? 'active' : '' }} "
+                    href="{{ route('admin.permissions.index') }}"> پرمیژن ها </a>
             </div>
         </div>
     </li>
@@ -84,16 +93,31 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+        <a class="nav-link collapsed 
+        " href="#" data-toggle="collapse" data-target="#collapseOrders"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
             <span> سفارشات </span>
         </a>
-        <div id="collapseOrders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseOrders"
+            class="collapse #
+        
+         {{ request()->is('admin-panel/management/orders*') ? 'show' : '' }} 
+        {{ request()->is('admin-panel/management/transactions*') ? 'show' : '' }} 
+        {{ request()->is('admin-panel/management/coupons*') ? 'show' : '' }} 
+        "
+            aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.orders.index') }}"> سفارشات</a>
-                <a class="collapse-item" href="{{ route('admin.transactions.index') }}"> تراکنش ها</a>
-                <a class="collapse-item" href="{{ route('admin.coupons.index') }}">کوپن ها</a>
+                <a class="collapse-item 
+                 {{ request()->is('admin-panel/management/orders*') ? 'active' : '' }} " " href="{{ route('admin.orders.index') }}">
+                    سفارشات</a>
+                <a class="collapse-item 
+                 {{ request()->is('admin-panel/management/transactions*') ? 'active' : '' }} "
+                   
+                " href="{{ route('admin.transactions.index') }}"> تراکنش ها</a>
+                <a class="collapse-item 
+                 {{ request()->is('admin-panel/management/coupons*') ? 'active' : '' }} " "
+                    href="{{ route('admin.coupons.index') }}">کوپن ها</a>
             </div>
         </div>
     </li>
