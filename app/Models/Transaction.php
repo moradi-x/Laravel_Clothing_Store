@@ -33,50 +33,44 @@ class Transaction extends Model
         return $status;
     }
 
-    public function scopeGetDate($query, $month, $status)
-    {
-
-        $v = verta()->startMonth()->subMonth($month - 1);
-        // $date = verta()->getGregorian($v->year(), $v->months(), $v->day());
-        $date = $v->toCarbon()->format('Y-m-d');
-
-
-        return $query->where(
-            'created_at',
-            '>',
-            Carbon::create($date[0], $date[1], $date[2], 0, 0, 0)
-        )
-            ->where('status', $status)
-            ->get();
-    }
-
-
-
-
 
     // public function scopeGetDate($query, $month, $status)
     // {
-    //     $start = verta()->startMonth();
 
-    //     for ($i = 1; $i < $month; $i++) {
-    //         $start->subMonth();
-    //     }
-
-    //     $start = verta()->startMonth();
-
-    //     for ($i = 1; $i < $month; $i++) {
-    //         $start = $start->copy()->subMonth();
-    //     }
-
-    //     $start = $start->toCarbon()->startOfDay();
+    //     $v = verta()->startMonth()->subMonth($month - 1);
+    //     // $date = verta()->getGregorian($v->year(), $v->months(), $v->day());
+    //     $date = $v->toCarbon()->format('Y-m-d');
 
 
-    //    $end = verta()->startMonth()->toCarbon()->startOfDay();
-
-    //     return $query
-    //         ->where('created_at', '>=', $start)
-    //         ->where('created_at', '<', $end)
+    //     return $query->where(
+    //         'created_at',
+    //         '>',
+    //         Carbon::create($date[0], $date[1], $date[2], 0, 0, 0)
+    //     )
     //         ->where('status', $status)
     //         ->get();
     // }
+
+
+
+
+
+
+
+ 
+public function scopeGetDate($query, $month, $status)
+{
+    $end = verta()->startMonth()->toCarbon();
+
+    $start = verta()
+        ->startMonth()
+        ->subMonth($month)
+        ->toCarbon();
+
+    return $query
+        ->where('created_at', '>=', $start)
+        ->where('created_at', '<', $end)
+        ->where('status', $status);
+}
+
 }

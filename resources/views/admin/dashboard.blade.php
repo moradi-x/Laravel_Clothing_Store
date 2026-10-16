@@ -39,20 +39,36 @@
             data: {
                 labels: @json($labels),
                 datasets: [{
-                    label: "تراکنش های موفق",
-                    lineTension: 0.3,
-                    backgroundColor: "rgba(78, 115, 223, 0.05)",
-                    borderColor: "rgba(78, 115, 223, 1)",
-                    pointRadius: 3,
-                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHoverRadius: 3,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHitRadius: 10,
-                    pointBorderWidth: 2,
-                    data: @json($successTransaction),
-                }],
+                        label: "تراکنش های موفق",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "rgba(78, 115, 223, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: @json($successTransaction),
+                    },
+                    {
+                        label: "تراکنش های نا موفق",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(255, 99, 132, 0.05)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(255, 99, 132, 1)",
+                        pointBorderColor: "rgba(255, 99, 132, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
+                        pointHoverBorderColor: "rgba(255, 99, 132, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: @json($unsuccessTransaction),
+                    }
+                ],
             },
             options: {
                 maintainAspectRatio: false,
@@ -66,15 +82,12 @@
                 },
                 scales: {
                     xAxes: [{
-                        time: {
-                            unit: 'date'
-                        },
                         gridLines: {
                             display: false,
                             drawBorder: false
                         },
                         ticks: {
-                            maxTicksLimit: 7
+                            autoSkip: false
                         }
                     }],
                     yAxes: [{
@@ -276,7 +289,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary"> لورم ایپسوم </h6>
+                    <h6 class="m-0 font-weight-bold text-primary"> تراکنش های یک سال گذشته </h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
