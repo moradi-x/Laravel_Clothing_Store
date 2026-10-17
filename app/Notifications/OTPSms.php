@@ -55,8 +55,6 @@ class OTPSms extends Notification
     }
 
     public function ToSms($notifiable){
-        return $this->code ; 
-
-        
+        return $this->code ;         
     }
 }

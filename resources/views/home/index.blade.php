@@ -12,7 +12,7 @@
             let variation = JSON.parse(this.value);
 
             // فقط قیمت مربوط به همین Modal
-            let variationPriceDiv = $('.variation-price');
+            let variationPriceDiv = $('.variation-price-' + $(this).data('id'));
             variationPriceDiv.empty();
 
             if (variation.is_sale) {
@@ -368,7 +368,7 @@
                             <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
                                 <div class="product-details-content quickview-content">
                                     <h2 class="text-right mb-4"> {{ $product->name }}</h2>
-                                    <div class="product-details-price  variation-price ">
+                                    <div class="product-details-price  variation-price-{{ $product->id }} }} ">
                                         @if ($product->quantity_check)
                                             @if ($product->sale_check)
                                                 <span class="new">
@@ -429,7 +429,8 @@
                                             <div class="pro-details-size-color text-right">
                                                 <div class="pro-details-size w-50 ">
                                                     <span>{{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}</span>
-                                                    <select name="variation" class="form-control variation-select  ">
+                                                    <select name="variation" class="form-control variation-select"
+                                                        data-in="{{ $product->id }}">
                                                         @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
                                                             <option
                                                                 value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}"

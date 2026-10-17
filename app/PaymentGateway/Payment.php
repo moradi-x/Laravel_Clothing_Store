@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ProductVariation;
 use App\Models\Transaction;
+use App\Notifications\PaymentReceipt;
 use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Support\Facades\DB;
 
@@ -81,11 +82,13 @@ class Payment
                 'status' => 1,
             ]);
 
+            auth()->user()->notify(new PaymentReceipt($order->id , $order->paying_amount , $ref_id));
+
             // مسئول کم‌کردن موجودی:
             foreach (CartFacade::getContent() as $item) {
                 $variation = ProductVariation::find($item->attributes->id);
                 $variation->update([
-                    'quantity' => $variation->quantity - $item->quantity
+                    'quantity' => $variation->quantity - $item->quantity 
                 ]);
             }
 

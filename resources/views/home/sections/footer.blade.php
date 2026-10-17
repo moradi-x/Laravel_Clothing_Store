@@ -3,10 +3,10 @@
                 <div class="footer-top text-center pt-45 pb-45">
                     <nav>
                         <ul>
-                            <li><a href=" {{ route('home.index') }} ">صفحه ای اصلی </a></li>
+                            {{-- <li><a href=" {{ route('home.index') }} ">صفحه ای اصلی </a></li>
                             <li><a href="#">فروشگاه </a></li>
                             <li><a href="contact-us.html">تماس با ما </a></li>
-                            <li><a href="about-us.html">ارتباط با ما </a></li>
+                            <li><a href="about-us.html">ارتباط با ما </a></li> --}}
                         </ul>
                     </nav>
                 </div>
@@ -16,10 +16,10 @@
                     <div class="row align-items-center">
                         <div class="col-lg-4 col-md-5 col-12">
                             <div class="footer-social pb-20">
-                                <a href="#">اینستاگرام</a>
+                                {{-- <a href="#">اینستاگرام</a>
                                 <a href="#">تویتر</a>
                                 <a href="#">فیسبوک</a>
-                                <a href="#">لینکدین</a>
+                                <a href="#">لینکدین</a> --}}
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">

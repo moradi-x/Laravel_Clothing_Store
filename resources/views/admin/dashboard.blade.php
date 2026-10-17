@@ -147,11 +147,11 @@
         var myPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ["Direct", "Referral", "Social"],
+                labels: ["تراکنش موفق", "تراکنش نا موفق"],
                 datasets: [{
-                    data: [55, 30, 15],
-                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                    data: @json($transactionCount) ,
+                    backgroundColor: ['#4e73df', '#1cc88a'],
+                    hoverBackgroundColor: ['#2e59d9', '#17a673'],
                     hoverBorderColor: "rgba(234, 236, 244, 1)",
                 }],
             },
@@ -319,7 +319,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary"> لورم ایپسوم </h6>
+                    <h6 class="m-0 font-weight-bold text-primary"> تعداد  تراکنش های یک سال گذشته   </h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -342,13 +342,10 @@
                     </div>
                     <div class="mt-4 text-center small">
                         <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
+                            <i class="fas fa-circle text-primary"></i> تراکنش موفق
                         </span>
                         <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
+                            <i class="fas fa-circle text-success"></i> تراکنش  نا موفق
                         </span>
                     </div>
                 </div>

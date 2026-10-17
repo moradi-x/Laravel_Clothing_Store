@@ -23,41 +23,15 @@ class AdminController extends Controller
     //     $unsuccessTransaction = Transaction::getDate($month, 0);
     //     $unsuccessTransactionChart =  $this->chart($unsuccessTransaction, $month);
 
-
-
-    //     dd([
-    //         'labels' => array_keys($successTransactionChart),
-    //         'chart_values' => array_values($successTransactionChart),
-    //         'transactions' => $successTransaction->map(function ($item) {
-    //             return [
-    //                 'id' => $item->id,
-    //                 'amount' => $item->amount,
-    //                 'date' => verta($item->created_at)->format('Y-m-d'),
-    //                 'status' => $item->getRawOriginal('status'),
-    //             ];
-    //         }),
-    //     ]);
-
-
     //     return view('admin.dashboard', [
     //         'successTransaction' => array_values($successTransactionChart),
     //         'labels' => array_keys($successTransactionChart)
     //     ]);
     // }
 
-
-
-
-
-
-
-
-
-
     public function index()
     {
-        $month = 12
-        ;
+        $month = 12;
 
         $start = verta()->startMonth()->subMonths($month - 1)->toCarbon();
         $end = verta()->startMonth()->addMonth()->toCarbon();
@@ -81,14 +55,9 @@ class AdminController extends Controller
             'labels' => array_keys($successChart),
             'successTransaction' => array_values($successChart),
             'unsuccessTransaction' => array_values($failedChart),
+            'transactionCount' => [ $successTransaction->count() ,  $failedTransaction->count()] ,
         ]);
     }
-
-
-
-
-
-
 
 
 
@@ -123,9 +92,6 @@ class AdminController extends Controller
     //     };
     //     return $result;
     // }
-
-
-
 
 
     public function chart($transactions, $month = 6)
